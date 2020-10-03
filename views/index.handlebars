@@ -1,0 +1,31 @@
+<header>
+  <h1>VOTING</h1>
+</header>
+
+
+
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <h2>Votes</h2>
+      <ul>
+        {{#each vote}}
+        {{#unless PLACEHOLDER}}
+        {{> votes/vote-block vote=true}}
+        {{/unless}}
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<footer>
+</footer>
+</div>
