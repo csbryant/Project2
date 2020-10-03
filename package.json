@@ -19,6 +19,7 @@
   "homepage": "https://github.com/csbryant/Project2#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "foundation-sites": "^6.6.3",
     "handlebars": "^4.7.6",
     "mysql2": "^2.2.5",
     "sequelize": "^6.3.5"
