@@ -1,2 +1,13 @@
+
+#ignore config files
+config/
+
+#ignore DB files
+db/
+
+#ignore model files
 models/index.js
+models/user.js
+
+#ignore node modules
 node_modules
