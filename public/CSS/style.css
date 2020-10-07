@@ -2,3 +2,75 @@ form.signup,
 form.login {
   margin-top: 50px;
 }
+
+.welcome {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.video-container {
+  position: fixed;
+  justify-content: center;
+  z-index: -1;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+.video {
+width: auto;
+height: 130vh;
+}
+
+.logo {
+  width: 50%;
+}
+
+.fixed-footer h1 {
+   color: white   !important;
+   
+}
+
+@media (max-width: 26000) {
+  .video {
+    width: auto;
+    height: 160vh;
+    }
+}
+
+@media (max-width: 1800px) {
+  .video {
+    width: auto;
+    height: 120vh;
+    }
+}
+
+@media (max-width: 1200px) {
+  .logo {
+    width: 75%;
+  }
+  .video {
+    width: auto;
+    height: 130vh;
+    }
+}
+
+@media (max-width: 600px) {
+  .logo {
+    width: 90%;
+  }
+  .video {
+    width: auto;
+    height: 100vh;
+    }
+}
