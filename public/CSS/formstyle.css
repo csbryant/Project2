@@ -1,9 +1,9 @@
 * {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 body {
-  background-color:  rgb(244, 244, 244)  ;
+  background-color: rgb(244, 244, 244);
 }
 
 form.signup,
@@ -23,15 +23,57 @@ form.login {
   margin-bottom: 5px;
 }
 
-.picture-opacity{
+.topimagemobile {
+  display: none;
+}
+
+.picture-opacity {
   position: absolute;
   top: 0px;
   height: 60vh;
   width: 100%;
   background-size: cover;
-  background:
-   linear-gradient(
-      to bottom,
-      rgba(194, 194, 194, 0), rgb(244, 244, 244)  
-    );
+  background: linear-gradient(
+    to bottom,
+    rgba(194, 194, 194, 0),
+    rgb(244, 244, 244)
+  );
+}
+
+.signupcont {
+  margin-top: 20px;
+  padding-bottom: 10px;
+  width: 75%;
+  background-color: white;
+  border-radius: 20px;
+  opacity: 95%;
+}
+
+.logincont {
+  margin-top: 40px;
+  padding-bottom: 10px;
+  width: 75%;
+  background-color: white;
+  border-radius: 20px;
+  opacity: 95%;
+}
+
+
+
+@media (max-width: 600px) {
+  .topimage {
+    display: none;
+  }
+  .topimagemobile {
+    width: 100%;
+    height: auto;
+    display: block;
+    position: relative;
+  }
+  .logincont {
+    margin-top: 50px;
+  }
+  .signupcont {
+    margin-top: 50px;
+  }
 }
