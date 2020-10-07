@@ -1,8 +1,3 @@
-form.signup,
-form.login {
-  margin-top: 50px;
-}
-
 .welcome {
   position: relative;
   height: 100vh;
@@ -38,10 +33,10 @@ height: 130vh;
 
 .fixed-footer h1 {
    color: white   !important;
-   
+   font-family: 'Montserrat', sans-serif;
 }
 
-@media (max-width: 26000) {
+@media (min-width: 26000) {
   .video {
     width: auto;
     height: 160vh;
