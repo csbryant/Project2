@@ -28,13 +28,13 @@
     "no-multi-spaces": "error",
     "no-unreachable": "error",
     "no-unused-vars": "error",
-    "no-var": "error",
-    "prefer-arrow-callback": "error",
-    "prefer-const": "error",
-    "prettier/prettier": "error",
-    "quotes": ["error", "double"],
+    "no-var": "off",
+    "prefer-arrow-callback": "off",
+    "prefer-const": "off",
+    "prettier/prettier": "off",
+    "quotes": ["off", "double"],
     "semi": ["error", "always"],
-    "vars-on-top": "error",
+    "vars-on-top": "off",
     "yoda": "error"
   }
 }

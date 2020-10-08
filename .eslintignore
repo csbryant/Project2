@@ -1,6 +1,8 @@
 
 #ignore config files
-config/
+config/config.js
+config/passport.js
+config/middleware/isAuthenticated.js
 
 #ignore DB files
 db/
