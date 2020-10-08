@@ -28,8 +28,6 @@
     "express-handlebars": "^5.1.0",
     "express-session": "^1.16.1",
     "foundation-sites": "^6.6.3",
-    "google": "^2.1.0",
-    "googleapi": "^1.0.2",
     "googleapis": "^61.0.0",
     "handlebars": "^4.7.6",
     "jquery": "^3.5.1",
