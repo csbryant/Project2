@@ -17,7 +17,7 @@ $(document).ready(() => {
       password: passwordInput.val().trim(),
       address:addressInput.val().trim(),
       city:cityInput.val().trim(),
-      state:cityInput.val(),
+      state:stateInput.val(),
       zipcode:zipInput.val().trim()
     };
     if (!userData.email || !userData.password ) {

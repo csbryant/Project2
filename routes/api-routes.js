@@ -30,6 +30,7 @@ module.exports = function(app) {
         res.redirect(307, "/api/login");
       })
       .catch(err => {
+        console.log(err)
         res.status(401).json(err);
       });
   });
@@ -55,7 +56,8 @@ module.exports = function(app) {
     }
   });
 };
-const axios = require("axios");
+
+/* const axios = require("axios");
 const {google} = require('googleapis');
 // const { Server } = require("http");
 const fs = require("fs");
@@ -98,6 +100,6 @@ civicinfo.elections.voterInfoQuery(params)
           console.log(response.data)
         });
   
-  
+   */
 
  
