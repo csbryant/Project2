@@ -32,8 +32,19 @@ height: 130vh;
 }
 
 .fixed-footer h1 {
+  color: white   !important;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.fixed-footer h1 a {
    color: white   !important;
    font-family: 'Montserrat', sans-serif;
+}
+
+.fixed-footer h1 a:hover {
+  color: white !important;
+  font-family: 'Montserrat', sans-serif;
+  text-decoration: none !important;
 }
 
 @media (min-width: 26000) {

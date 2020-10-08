@@ -55,3 +55,49 @@ module.exports = function(app) {
     }
   });
 };
+const axios = require("axios");
+const {google} = require('googleapis');
+// const { Server } = require("http");
+const fs = require("fs");
+
+
+const middlewaretoken = "XGteyaJG5V1j8wA5wgAVQQl3ThYIpe9klfyiFKFQ117KzZnGqvbkMksXfGPqEzhk&"
+const voter_device_id = "e9d5HVqN5duYmmWNDoonK5zyJ2KZh2CsHhnunVRpSnKlFF4sWdRKLBuOy5rESt1znScUhtcItDAxgk78ca7uQiBc"
+const google_civic_election_id = "1000112"
+const address = "4053+camellia+ave.+studio+city+california+91604"
+
+ axios({
+   method: 'get',
+   url: "https://api.wevoteusa.org/apis/v1/voterAddressSave/?csrfmiddlewaretoken="+middlewaretoken +"voter_device_id=" + voter_device_id + "&text_for_map_search=" + address,
+ })
+   .then(function (response) {
+     console.log(response.data)
+   });
+
+const civicinfo = google.civicinfo({
+  version: 'v2',
+  auth: 'AIzaSyDsppdMS3wxP88R7QYqvWbyYk7HavF5Y4U'
+});
+const params = {
+  address: "1439 Blake Avenue Los Angeles CA 90031"
+};
+// get the civic details
+civicinfo.elections.voterInfoQuery(params)
+.then(res => {
+    console.log(res.data.dropOffLocations);
+  })
+  .catch(error => {
+    console.error(error);
+  });
+
+    axios({
+        method: 'get',
+        url: "https://api.wevoteusa.org/apis/v1/deviceIdGenerate",
+      })
+        .then(function (response) {
+          console.log(response.data)
+        });
+  
+  
+
+ 
