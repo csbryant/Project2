@@ -1,0 +1,22 @@
+.positions {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 60rem;
+}
+
+.propositions {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.card {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+@media (max-width: 600px) {
+    .positions {
+    width: 30rem;
+    }
+  }
+
