@@ -56,7 +56,7 @@ module.exports = function(app) {
     }
   });
 };
-/* 
+
 const axios = require("axios");
 const { google } = require("googleapis");
 const { Server } = require("http");
@@ -87,7 +87,7 @@ app.get("/voteraddress/:address", (req, res) => {
 
 });
 
- */
+
 /* 
 const civicinfo = google.civicinfo({
   version: "v2",
