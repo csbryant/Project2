@@ -3,7 +3,8 @@
 }
 
 body {
-  background-color: rgb(244, 244, 244);
+  background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+  background-attachment: fixed;
 }
 
 form.signup,
@@ -43,10 +44,10 @@ form.login {
 .signupcont {
   margin-top: 20px;
   padding-bottom: 10px;
-  width: 75%;
+  width: 50%;
   background-color: white;
   border-radius: 20px;
-  opacity: 95%;
+  opacity: 93%;
 }
 
 .logincont {
@@ -58,6 +59,15 @@ form.login {
   opacity: 95%;
 }
 
+
+@media (max-width: 1400px) {
+  .logincont {
+    width: 80%;
+  }
+  .signupcont {
+    width: 80%;
+  }
+}
 
 @media (max-width: 600px) {
   .topimage {
@@ -71,8 +81,10 @@ form.login {
   }
   .logincont {
     margin-top: 50px;
+    width: 90%;
   }
   .signupcont {
     margin-top: 50px;
+    width: 90%;
   }
 }
