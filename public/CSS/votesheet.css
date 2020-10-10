@@ -1,22 +1,62 @@
+* {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+}
+
+h1 {
+  text-align: center;
+  color: white;
+}
+
+body {
+    background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+}
+
 .positions {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: 60rem;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 60rem;
+  align-items: center;
 }
 
 .propositions {
-    margin-top: 10px;
-    margin-bottom: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: white;
 }
 
 .card {
-    margin-top: 5px;
-    margin-bottom: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
-@media (max-width: 600px) {
-    .positions {
-    width: 30rem;
-    }
-  }
+.card-body {
+  align-items: center;
+  text-align: center;
+}
 
+.propvote {
+  margin-top: 5px;
+}
+
+.noyes {
+  font-family: "Montserrat", sans-serif;
+  font-size: smaller;
+  text-align: center;
+}
+
+.logo {
+    height: 55px;
+    width: auto;
+}
+
+.placeholder {
+  text-align: center;
+}
+
+
+@media (max-width: 600px) {
+  .positions {
+    width: 26rem;
+  }
+}
