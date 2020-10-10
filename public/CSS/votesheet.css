@@ -12,6 +12,13 @@ body {
     background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
 }
 
+/*
+.card-img-top {
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
+*/
+
 .positions {
   margin-top: 10px;
   margin-bottom: 10px;
