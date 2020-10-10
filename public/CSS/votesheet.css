@@ -15,7 +15,6 @@ body {
 .positions {
   margin-top: 10px;
   margin-bottom: 10px;
-  width: 60rem;
   align-items: center;
 }
 
@@ -54,9 +53,7 @@ body {
   text-align: center;
 }
 
-
-@media (max-width: 600px) {
-  .positions {
-    width: 26rem;
-  }
+.card-footer {
+align-items: center;
+text-align: center;
 }
