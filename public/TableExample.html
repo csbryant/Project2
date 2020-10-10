@@ -15,6 +15,8 @@
       rel="stylesheet"
     />
     <link href="CSS/votesheet.css" rel="stylesheet" />
+    <script src="../JS/tableExample.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   </head>
 
   <body>
@@ -265,171 +267,229 @@
       </div>
     </div>
 
-
     <div id="accordion">
-        <div class="card">
-          <div class="card-header" id="headingOne">
-            <h5 class="mb-0">
-              <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                Proposition 1
-              </button>
-            </h5>
-          </div>
-      
-          <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-sm">
-                      Description in here. Description in here. Description in here.
-                      Description in here. Description in here. Description in here.
-                      Description in here. Description in here.
-                    </div>
-                    <div class="col-sm">
-                      <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-secondary">
-                          <input
-                            type="radio"
-                            name="options"
-                            id="option1"
-                            autocomplete="off"
-                            checked
-                          />
-                          Yes
-                        </label>
-                        <label class="btn btn-secondary active">
-                          <input
-                            type="radio"
-                            name="options"
-                            id="option2"
-                            autocomplete="off"
-                          />
-                          Undecided
-                        </label>
-                        <label class="btn btn-secondary">
-                          <input
-                            type="radio"
-                            name="options"
-                            id="option3"
-                            autocomplete="off"
-                          />
-                          No
-                        </label>
-                      </div>
-                    </div>            
+      <div class="card">
+        <div class="card-header" id="headingOne">
+          <h5 class="mb-0">
+            <button
+              class="btn btn-link"
+              data-toggle="collapse"
+              data-target="#collapseOne"
+              aria-expanded="true"
+              aria-controls="collapseOne"
+            >
+              Proposition 1
+            </button>
+          </h5>
+        </div>
+
+        <div
+          id="collapseOne"
+          class="collapse show"
+          aria-labelledby="headingOne"
+          data-parent="#accordion"
+        >
+          <div class="card-body">
+            <div class="row" id="prop1">
+              <div class="col-sm">
+                Description in here. Description in here. Description in here.
+                Description in here. Description in here. Description in here.
+                Description in here. Description in here.
+              </div>
+              <div class="col-sm">
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                  <label class="btn btn-secondary">
+                    <input
+                      type="radio"
+                      name="options"
+                      id="option1"
+                      autocomplete="off"
+                      checked
+                    />
+                    Yes
+                  </label>
+                  <label class="btn btn-secondary active">
+                    <input
+                      type="radio"
+                      name="options"
+                      id="option2"
+                      autocomplete="off"
+                    />
+                    Undecided
+                  </label>
+                  <label class="btn btn-secondary">
+                    <input
+                      type="radio"
+                      name="options"
+                      id="option3"
+                      autocomplete="off"
+                    />
+                    No
+                  </label>
                 </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="card">
           <div class="card-header" id="headingTwo">
             <h5 class="mb-0">
-              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              <button
+                class="btn btn-link collapsed"
+                data-toggle="collapse"
+                data-target="#collapseTwo"
+                aria-expanded="false"
+                aria-controls="collapseTwo"
+              >
                 Propositon 2
               </button>
             </h5>
           </div>
-          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+          <div
+            id="collapseTwo"
+            class="collapse"
+            aria-labelledby="headingTwo"
+            data-parent="#accordion"
+          >
             <div class="card-body">
-                <div class="row">
-                    <div class="col-sm">
-                      Description in here. Description in here. Description in here.
-                      Description in here. Description in here. Description in here.
-                      Description in here. Description in here.
-                    </div>
-                    <div class="col-sm">
-                      <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-secondary">
-                          <input
-                            type="radio"
-                            name="options"
-                            id="option1"
-                            autocomplete="off"
-                            checked
-                          />
-                          Yes
-                        </label>
-                        <label class="btn btn-secondary active">
-                          <input
-                            type="radio"
-                            name="options"
-                            id="option2"
-                            autocomplete="off"
-                          />
-                          Undecided
-                        </label>
-                        <label class="btn btn-secondary">
-                          <input
-                            type="radio"
-                            name="options"
-                            id="option3"
-                            autocomplete="off"
-                          />
-                          No
-                        </label>
-                      </div>
-                    </div>            
+              <div class="row" id="prop2">
+                <div class="col-sm">
+                  Description in here. Description in here. Description in here.
+                  Description in here. Description in here. Description in here.
+                  Description in here. Description in here.
                 </div>
+                <div class="col-sm">
+                  <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-secondary">
+                      <input
+                        type="radio"
+                        name="options"
+                        id="option1"
+                        autocomplete="off"
+                        checked
+                      />
+                      Yes
+                    </label>
+                    <label class="btn btn-secondary active">
+                      <input
+                        type="radio"
+                        name="options"
+                        id="option2"
+                        autocomplete="off"
+                      />
+                      Undecided
+                    </label>
+                    <label class="btn btn-secondary">
+                      <input
+                        type="radio"
+                        name="options"
+                        id="option3"
+                        autocomplete="off"
+                      />
+                      No
+                    </label>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
         <div class="card">
           <div class="card-header" id="headingThree">
             <h5 class="mb-0">
-              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              <button
+                class="btn btn-link collapsed"
+                data-toggle="collapse"
+                data-target="#collapseThree"
+                aria-expanded="false"
+                aria-controls="collapseThree"
+              >
                 Proposition 3
               </button>
             </h5>
           </div>
-          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+          <div
+            id="collapseThree"
+            class="collapse"
+            aria-labelledby="headingThree"
+            data-parent="#accordion"
+          >
             <div class="card-body">
-                <div class="row">
-                    <div class="col-sm">
-                      Description in here. Description in here. Description in here.
-                      Description in here. Description in here. Description in here.
-                      Description in here. Description in here.
-                    </div>
-                    <div class="col-sm">
-                      <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-secondary">
-                          <input
-                            type="radio"
-                            name="options"
-                            id="option1"
-                            autocomplete="off"
-                            checked
-                          />
-                          Yes
-                        </label>
-                        <label class="btn btn-secondary active">
-                          <input
-                            type="radio"
-                            name="options"
-                            id="option2"
-                            autocomplete="off"
-                          />
-                          Undecided
-                        </label>
-                        <label class="btn btn-secondary">
-                          <input
-                            type="radio"
-                            name="options"
-                            id="option3"
-                            autocomplete="off"
-                          />
-                          No
-                        </label>
-                      </div>
-                    </div>            
+              <div class="row" id="prop3">
+                <div class="col-sm">
+                  Description in here. Description in here. Description in here.
+                  Description in here. Description in here. Description in here.
+                  Description in here. Description in here.
                 </div>
+                <div class="col-sm">
+                  <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-secondary">
+                      <input
+                        type="radio"
+                        name="options"
+                        id="option1"
+                        autocomplete="off"
+                        checked
+                      />
+                      Yes
+                    </label>
+                    <label class="btn btn-secondary active">
+                      <input
+                        type="radio"
+                        name="options"
+                        id="option2"
+                        autocomplete="off"
+                      />
+                      Undecided
+                    </label>
+                    <label class="btn btn-secondary">
+                      <input
+                        type="radio"
+                        name="options"
+                        id="option3"
+                        autocomplete="off"
+                      />
+                      No
+                    </label>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <br> <br> <br>
-
+      <br />
+      <br />
+      <br />
     </div>
+    <script>
+      var measures = [];
+      const address = "1431+Walnut+Ave+Long+beach+CA+90813";
+      const queryU =
+        "https://api.wevoteusa.org/apis/v1/voterAddressSave/?csrfmiddlewaretoken=mRyhv4vjUAzkGQMWxLZrswUw7BUG6NHe6ojzNTMqHzcWMOVR7vrbYtQvaQZ96m2v&voter_device_id=AE08n1yZqrtkFWv7jO9BeYESRiGQgQoYBfZ9TUxvnfnU0YANSl5NtZVyPGsFrKtXS0zmceW77e6ByyvKm2ky3p5F&text_for_map_search=" +
+        address;
+      // begin first ajax call
+      $.ajax({
+        method: "GET",
+        url: queryU,
+      }).then(function(response) {
+        const main = response.ballot_item_list.filter(function(MEASURE) {
+          return MEASURE.kind_of_ballot_item === "MEASURE";
+        });
+        for (var index = 0; index < main.length; index++) {
+          const element = main[index];
+          measures.push(element);
+        }
+        render(measures);
+      });
+      function render(measures) {
+        console.log(measures);
+      }
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      
+    </script>
+
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
       integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
