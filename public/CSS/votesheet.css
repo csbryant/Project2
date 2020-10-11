@@ -64,3 +64,11 @@ body {
 align-items: center;
 text-align: center;
 }
+
+.btn-link {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: normal;
+  display:block;
+}
