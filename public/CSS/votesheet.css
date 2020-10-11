@@ -72,3 +72,11 @@ text-align: center;
   white-space: normal;
   display:block;
 }
+
+.textfit {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: normal;
+  display:block;
+}
