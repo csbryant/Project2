@@ -126,16 +126,7 @@ $(document).ready(() => {
                 autocomplete="off"
                 checked
               />
-              Yes
-            </label>
-            <label class="btn btn-secondary active">
-              <input
-                type="radio"
-                name="options"
-                id="option2"
-                autocomplete="off"
-              />
-              Undecided
+              Choose
             </label>
             <label class="btn btn-secondary">
               <input
@@ -144,7 +135,7 @@ $(document).ready(() => {
                 id="option3"
                 autocomplete="off"
               />
-              No
+              Oppose
             </label>
           </div>
     </div>
