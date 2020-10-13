@@ -20,8 +20,7 @@ module.exports = function(app) {
   app.post("/api/signup", (req, res) => {
     db.User.create({
       email: req.body.email,
-      password: req.body.password,
-  
+      password: req.body.password
     })
       .then(() => {
         res.redirect(307, "/api/login");
@@ -57,15 +56,45 @@ module.exports = function(app) {
     var dbQuery = "SELECT * FROM candidates";
 
     connection.query(dbQuery, function(err, result) {
-      if (err) throw err;
+      if (err) {
+        throw err;
+      }
       res.render(result);
     });
   });
 
+  app.get("/api/googleapi", function(req, res) {
+    const { google } = require("googleapis");
+  
+    const civicinfo = google.civicinfo({
+      version: "v2",
+      auth: "AIzaSyDsppdMS3wxP88R7QYqvWbyYk7HavF5Y4U"
+    });
+    const params = {
+      address: "1439 Blake Avenue Los Angeles CA 90031"
+    };
+    // get the civic details
+    let info;
+
+    civicinfo.elections
+      .voterInfoQuery(params)
+      .then(res => {
+        console.log(res.data.dropOffLocations);
+        return info = res.data.dropOffLocations;
+      })
+      .catch(error => {
+        console.error(error);
+      });
+
+    return res.json(info);
+  });
 };
+
+
+
 /* 
 const axios = require("axios");
-const { google } = require("googleapis");
+
 const { Server } = require("http");
 const fs = require("fs");
 const middlewaretoken =

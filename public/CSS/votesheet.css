@@ -2,81 +2,68 @@
   font-family: "Montserrat", sans-serif;
   font-weight: 300;
 }
-
 h1 {
   text-align: center;
   color: white;
 }
-
 body {
-    background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+  background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+  background-attachment: fixed;
 }
-
-/*
-.card-img-top {
-  -webkit-filter: grayscale(100%);
-  filter: grayscale(100%);
-}
-*/
-
 .positions {
   margin-top: 10px;
   margin-bottom: 10px;
   align-items: center;
 }
-
 .propositions {
   margin-top: 10px;
   margin-bottom: 10px;
   background-color: white;
 }
-
 .card {
   margin-top: 5px;
   margin-bottom: 5px;
 }
-
 .card-body {
   align-items: center;
   text-align: center;
 }
-
 .propvote {
   margin-top: 5px;
 }
-
 .noyes {
   font-family: "Montserrat", sans-serif;
   font-size: smaller;
   text-align: center;
 }
-
 .logo {
-    height: 55px;
-    width: auto;
+  height: 55px;
+  width: auto;
 }
-
 .placeholder {
   text-align: center;
 }
-
 .card-footer {
-align-items: center;
-text-align: center;
+  align-items: center;
+  text-align: center;
 }
-
 .btn-link {
   white-space: pre-wrap;
   word-wrap: break-word;
   word-break: break-all;
   white-space: normal;
-  display:block;
+  display: block;
 }
-
 .textfit {
   white-space: pre-wrap;
   word-wrap: break-word;
   word-break: break-all;
   white-space: normal;
-  display:block;
+  display: block;
+}
+.card-img-top {
+  object-fit: cover;
+  height: 300px;
+  width: 100%;
+  filter: blur(1px);
 }

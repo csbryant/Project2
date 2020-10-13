@@ -40,124 +40,253 @@ $(document).ready(() => {
     for (var index = 0; index < measuresdata.length; index++) {
       measures.push(measuresdata[index]);
     }
-    console.log(presedentialCandidates);
+
     presedentialCandidates.forEach(renderPresidents);
     measures.forEach(render);
   });
 
   function renderPresidents(presidents) {
-    //Render Card Top
-    var presidentcards = $("#presidentcards");
-    var carddeck = $("<div>").addClass("card-deck");
-    presidentcards.append(carddeck);
-    var card = $("<div>").addClass("card");
-    carddeck.append(card);
-    // Needs Source
-    var image = $("<img>").addClass("card-img-top");
-    card.append(image);
-    image.attr("src", presidents.candidate_photo_url_large);
-    // Card Body
-    var cardbody = $("<div>").addClass("card-body");
-    card.append(cardbody);
-    // Needs Candidate
-    var cardtitle = $("<h5>").addClass("card-title");
-    cardbody.append(cardtitle);
-    cardtitle.text(presidents.ballot_item_display_name);
-    // Needs Party
-    var textmuted = $("<small>").addClass("text-muted");
-    cardbody.append(textmuted);
-    textmuted.text(presidents.party);
-    // Needs Summary
-    var cardtext = $("<p>").addClass("card-text");
-    cardbody.append(cardtext);
-    cardtext.text(presidents.ballotpedia_candidate_summary);
+    const presidentcardimagesrc = presidents.candidate_photo_url_large;
+    const presidentcardHeader = presidents.ballot_item_display_name;
+    const presidentpartytext = presidents.party;
+    const presidentcardBody = presidents.ballotpedia_candidate_summary;
+    const cardeck = $("#carddeck");
 
-    //Card Footer
-    var cardfooter = $("<div>").addClass("card-footer");
-    cardbody.append(cardfooter);
-    var presbutton = $("<div>")
-      .addClass("btn-group btn-group-toggle")
-      .attr("data-toggle", "buttons");
-    cardfooter.append(presbutton);
+    console.log(cardeck.children().length)
 
-    //Render Choose Button
-    var labelchoose = $("<label>").addClass("btn btn-secondary");
-    presbutton.append(labelchoose);
-    labelchoose.text("Choose");
-    var inputchoose = $(
-      "<input type='radio' name='options' id ='option1' autocomplete='off' checked>"
-    );
-    labelchoose.append(inputchoose);
+    /* if (cardeck.children().length === 0) {
+      const presidentcardOne = `<div id=carddeck class="card-deck">
+      <div  class="card">
+        <img
+          class="card-img-top"
+          src= ${presidentcardimagesrc}
+        />
+        <div class="card-body">
+          <h5 class="card-title">${presidentcardHeader}</h5>
+          <small class="text-muted">${presidentpartytext}</small>
+          <p class="card-text">
+           ${presidentcardBody}
+          </p>
+        </div>
+        <div class="card-footer">
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-secondary">
+              <input
+                type="radio"
+                name="options"
+                id="option1"
+                autocomplete="off"
+                checked
+              />
+              Choose
+            </label>
+            <label class="btn btn-secondary">
+              <input
+                type="radio"
+                name="options"
+                id="option3"
+                autocomplete="off"
+              />
+              Oppose
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>`;
 
-    //Render Oppose Button
-    var labeloppose = $("<label>").addClass("btn btn-secondary");
-    presbutton.append(labeloppose);
-    labeloppose.text("Oppose");
-    var inputoppose = $(
-      "<input type='radio' name='options' id ='option3' autocomplete='off'>"
-    );
-    labelchoose.append(inputoppose);
+      $("#presidentcards").append(presidentcardOne);
+    }
+
+    if (cardeck.children().length > 0) {
+
+      const presidentcardTwo = `  <div class="card">
+      <img
+        class="card-img-top"
+        src= ${presidentcardimagesrc}
+        alt="Card image cap"
+      />
+      <div class="card-body">
+        <h5 class="card-title">${presidentcardHeader}</h5>
+        <small class="text-muted">${presidentpartytext}</small>
+        <p class="card-text">
+        ${presidentcardBody}
+        </p>
+      </div>
+      <div class="card-footer">
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+          <label class="btn btn-secondary">
+            <input
+              type="radio"
+              name="options"
+              id="option1"
+              autocomplete="off"
+              checked
+            />
+            Choose
+          </label>
+          <label class="btn btn-secondary">
+            <input
+              type="radio"
+              name="options"
+              id="option3"
+              autocomplete="off"
+            />
+            Oppose
+          </label>
+        </div>
+      </div>
+    </div>`;
+
+      $("#carddeck").append(presidentcardTwo);
+    } */
+
+  const presidenthtmlSection = `
+        <div id=carddeck class="card-deck">
+          <div class="card">
+            <img
+              class="card-img-top"
+              src= ${presidentcardimagesrc}
+            />
+            <div class="card-body">
+              <h5 class="card-title">${presidentcardHeader}</h5>
+              <small class="text-muted">${presidentpartytext}</small>
+              <p class="card-text">
+               ${presidentcardBody}
+              </p>
+            </div>
+            <div class="card-footer">
+              <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary">
+                  <input
+                    type="radio"
+                    name="options"
+                    id="option1"
+                    autocomplete="off"
+                    checked
+                  />
+                  Choose
+                </label>
+                <label class="btn btn-secondary">
+                  <input
+                    type="radio"
+                    name="options"
+                    id="option3"
+                    autocomplete="off"
+                  />
+                  Oppose
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <img
+              class="card-img-top"
+              src= ${presidentcardimagesrc}
+              alt="Card image cap"
+            />
+            <div class="card-body">
+              <h5 class="card-title">${presidentcardHeader}</h5>
+              <small class="text-muted">${presidentpartytext}</small>
+              <p class="card-text">
+              ${presidentcardBody}
+              </p>
+            </div>
+            <div class="card-footer">
+              <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary">
+                  <input
+                    type="radio"
+                    name="options"
+                    id="option1"
+                    autocomplete="off"
+                    checked
+                  />
+                  Choose
+                </label>
+                <label class="btn btn-secondary">
+                  <input
+                    type="radio"
+                    name="options"
+                    id="option3"
+                    autocomplete="off"
+                  />
+                  Oppose
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    `;
+
+    $("#presidentcards").append(presidenthtmlSection); 
   }
 
   function render(measures) {
-    //Render card title
-    var propositionCards = $("#propositionscards");
-    var carddiv = $("<div>").addClass("card text-center");
-    propositionCards.append(carddiv);
-    var cardheaderdiv = $("<div>").addClass("card-header");
-    carddiv.append(cardheaderdiv);
-    cardheaderdiv.text(measures.ballot_item_display_name);
+    const measurecardHeader = measures.ballot_item_display_name;
+    const measurecardBody = measures.measure_text;
+    const measureyesBody = measures.yes_vote_description;
+    const measurenoBody = measures.no_vote_description;
 
-    //Render cardbody
-    var cardbodydiv = $("<div>").addClass("card-body");
-    carddiv.append(cardbodydiv);
-    var bodypelement = $("<p>").addClass("card-text");
-    cardbodydiv.append(bodypelement);
-    bodypelement.text(measures.measure_text);
+    const measureshtmlSection = `
+    <div class="card text-center">
+    <div class="card-header">
+    ${measurecardHeader}
+    </div>
+    <div class="card-body">
+      <p class="card-text">${measurecardBody}</p>
+      <div class="col-sm noyes">
+        ${measureyesBody}
+      </div>
+      <div class="col-sm noyes">
+      ${measurenoBody}
+      </div>
+    </div>
+    <div class="card-footer">
+        <div class="btn-group btn-group-toggle propvote"      
+            data-toggle="buttons">
+             <label class="btn btn-secondary">
+              <input
+                type="radio"
+                name="options"
+                id="option1"
+                autocomplete="off"
+                checked
+              />
+              Yes
+            </label>
+            <label class="btn btn-secondary active">
+              <input
+                type="radio"
+                name="options"
+                id="option2"
+                autocomplete="off"
+              />
+              Undecided
+            </label>
+            <label class="btn btn-secondary">
+              <input
+                type="radio"
+                name="options"
+                id="option3"
+                autocomplete="off"
+              />
+              No
+            </label>
+          </div>
+    </div>
+  </div>`;
 
-    //Render Yes Body
-    var yesdiv = $("<div>").addClass("col-sm noyes");
-    cardbodydiv.append(yesdiv);
-    yesdiv.text(measures.yes_vote_description);
-
-    //Render No Body
-    var nodiv = $("<div>").addClass("col-sm noyes");
-    cardbodydiv.append(nodiv);
-    nodiv.text(measures.no_vote_description);
-
-    //Render Card Footer
-    var cardfooterdiv = $("<div>").addClass("card-footer");
-    carddiv.append(cardfooterdiv);
-    var btnddiv = $("<div>")
-      .addClass("btn-group btn-group-toggle propvote")
-      .attr("data-toggle", "buttons");
-    cardfooterdiv.append(btnddiv);
-
-    //Render Yes Button
-    var labelyes = $("<label>").addClass("btn btn-secondary");
-    btnddiv.append(labelyes);
-    labelyes.text("Yes");
-    var inputyes = $(
-      "<input type='radio' name='options' id ='option1' autocomplete='off' checked>"
-    );
-    labelyes.append(inputyes);
-
-    //Render Undecided Button
-    var labelundecided = $("<label>").addClass("btn btn-secondary active");
-    btnddiv.append(labelundecided);
-    labelundecided.text("Undecided");
-    var inputundecided = $(
-      "<input type='radio' name='options' id ='option2' autocomplete='off'>"
-    );
-    labelundecided.append(inputundecided);
-
-    //Render No Button
-    var labelno = $("<label>").addClass("btn btn-secondary");
-    btnddiv.append(labelno);
-    labelno.text("No");
-    var inputno = $(
-      "<input type='radio' name='options' id ='option3' autocomplete='off'>"
-    );
-    labelno.append(inputno);
+    $("#propositionscards").append(measureshtmlSection);
   }
+
+  /* $.ajax({
+    method: "GET",
+    url: "/api/googleapi"
+  }).then(function(response) {
+    console.log(response);
+  }); */
 });
