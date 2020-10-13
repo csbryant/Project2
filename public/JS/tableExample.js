@@ -25,46 +25,79 @@ $(document).ready(() => {
     method: "GET",
     url: queryU
   }).then(function(response) {
-    const main = response.ballot_item_list.filter(function(MEASURE) {
+    const measuresdata = response.ballot_item_list.filter(function(MEASURE) {
       return MEASURE.kind_of_ballot_item === "MEASURE";
     });
 
-    const federal = response.ballot_item_list.filter(function(federal) {
+    const federaldata = response.ballot_item_list.filter(function(federal) {
       return federal.race_office_level === "Federal";
     });
 
-    console.log(federal)
-
-    for (var index = 0; index < main.length; index++) {
-      const element = main[index];
-      measures.push(element);
+    for (var index = 0; index < federaldata[1].candidate_list.length; index++) {
+      presedentialCandidates.push(federaldata[1].candidate_list[index]);
     }
 
-    for (var index = 0; index < main.length; index++) {
-      const element = main[index];
-      measures.push(element);
+    for (var index = 0; index < measuresdata.length; index++) {
+      measures.push(measuresdata[index]);
     }
-
+    console.log(presedentialCandidates);
+    presedentialCandidates.forEach(renderPresidents);
     measures.forEach(render);
-
-    /*   for (var index = 0; index < measures.length; index++) {
-    const measureTitle = measures[index].ballot_item_display_name;
-    const measureDescription = measures[index].measure_text;
-    const measureYes = measures[index].yes_vote_description;
-    const measureNo = measures[index].no_vote_description;
-    iPlus = index + 1;
-
-    $("#title").text(measureTitle);
-    $("#description").text(measureDescription);
-    $("#yesVote").text(measureYes);
-    $("#noVote").text(measureNo);
-
-    console.log(measureTitle);
-    console.log(measureDescription);
-    console.log(measureYes);
-    console.log(measureNo);
-  } */
   });
+
+  function renderPresidents(presidents) {
+    //Render Card Top
+    var presidentcards = $("#presidentcards");
+    var carddeck = $("<div>").addClass("card-deck");
+    presidentcards.append(carddeck);
+    var card = $("<div>").addClass("card");
+    carddeck.append(card);
+    // Needs Source
+    var image = $("<img>").addClass("card-img-top");
+    card.append(image);
+    image.attr("src", presidents.candidate_photo_url_large);
+    // Card Body
+    var cardbody = $("<div>").addClass("card-body");
+    card.append(cardbody);
+    // Needs Candidate
+    var cardtitle = $("<h5>").addClass("card-title");
+    cardbody.append(cardtitle);
+    cardtitle.text(presidents.ballot_item_display_name);
+    // Needs Party
+    var textmuted = $("<small>").addClass("text-muted");
+    cardbody.append(textmuted);
+    textmuted.text(presidents.party);
+    // Needs Summary
+    var cardtext = $("<p>").addClass("card-text");
+    cardbody.append(cardtext);
+    cardtext.text(presidents.ballotpedia_candidate_summary);
+
+    //Card Footer
+    var cardfooter = $("<div>").addClass("card-footer");
+    cardbody.append(cardfooter);
+    var presbutton = $("<div>")
+      .addClass("btn-group btn-group-toggle")
+      .attr("data-toggle", "buttons");
+    cardfooter.append(presbutton);
+
+    //Render Choose Button
+    var labelchoose = $("<label>").addClass("btn btn-secondary");
+    presbutton.append(labelchoose);
+    labelchoose.text("Choose");
+    var inputchoose = $(
+      "<input type='radio' name='options' id ='option1' autocomplete='off' checked>"
+    );
+    labelchoose.append(inputchoose);
+
+    //Render Oppose Button
+    var labeloppose = $("<label>").addClass("btn btn-secondary");
+    presbutton.append(labeloppose);
+    labeloppose.text("Oppose");
+    var inputoppose = $(
+      "<input type='radio' name='options' id ='option3' autocomplete='off'>"
+    );
+    labelchoose.append(inputoppose);
+  }
 
   function render(measures) {
     //Render card title
