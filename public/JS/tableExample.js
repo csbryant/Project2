@@ -50,179 +50,49 @@ $(document).ready(() => {
     const presidentcardHeader = presidents.ballot_item_display_name;
     const presidentpartytext = presidents.party;
     const presidentcardBody = presidents.ballotpedia_candidate_summary;
-    const cardeck = $("#carddeck");
+    const presidentcards = $("#presidentcards")
 
-    console.log(cardeck.children().length)
 
-    /* if (cardeck.children().length === 0) {
-      const presidentcardOne = `<div id=carddeck class="card-deck">
-      <div  class="card">
-        <img
-          class="card-img-top"
-          src= ${presidentcardimagesrc}
-        />
-        <div class="card-body">
-          <h5 class="card-title">${presidentcardHeader}</h5>
-          <small class="text-muted">${presidentpartytext}</small>
-          <p class="card-text">
-           ${presidentcardBody}
-          </p>
-        </div>
-        <div class="card-footer">
-          <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-secondary">
-              <input
-                type="radio"
-                name="options"
-                id="option1"
-                autocomplete="off"
-                checked
-              />
-              Choose
-            </label>
-            <label class="btn btn-secondary">
-              <input
-                type="radio"
-                name="options"
-                id="option3"
-                autocomplete="off"
-              />
-              Oppose
-            </label>
-          </div>
-        </div>
+  const presidenthtmlSection = `
+      <div class="col-6">
+      <div class="card">
+    <img
+      class="card-img-top"
+      src= ${presidentcardimagesrc}
+      alt="Card image cap"
+    />
+    <div class="card-body">
+      <h5 class="card-title">${presidentcardHeader}</h5>
+      <small class="text-muted">${presidentpartytext}</small>
+    </div>
+    <div class="card-footer">
+      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <label class="btn btn-secondary">
+          <input
+            type="radio"
+            name="options"
+            id="option1"
+            autocomplete="off"
+            checked
+          />
+          Choose
+        </label>
+        <label class="btn btn-secondary">
+          <input
+            type="radio"
+            name="options"
+            id="option3"
+            autocomplete="off"
+          />
+          Oppose
+        </label>
       </div>
     </div>
   </div>
-</div>`;
-
-      $("#presidentcards").append(presidentcardOne);
-    }
-
-    if (cardeck.children().length > 0) {
-
-      const presidentcardTwo = `  <div class="card">
-      <img
-        class="card-img-top"
-        src= ${presidentcardimagesrc}
-        alt="Card image cap"
-      />
-      <div class="card-body">
-        <h5 class="card-title">${presidentcardHeader}</h5>
-        <small class="text-muted">${presidentpartytext}</small>
-        <p class="card-text">
-        ${presidentcardBody}
-        </p>
-      </div>
-      <div class="card-footer">
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-          <label class="btn btn-secondary">
-            <input
-              type="radio"
-              name="options"
-              id="option1"
-              autocomplete="off"
-              checked
-            />
-            Choose
-          </label>
-          <label class="btn btn-secondary">
-            <input
-              type="radio"
-              name="options"
-              id="option3"
-              autocomplete="off"
-            />
-            Oppose
-          </label>
-        </div>
-      </div>
-    </div>`;
-
-      $("#carddeck").append(presidentcardTwo);
-    } */
-
-  const presidenthtmlSection = `
-        <div id=carddeck class="card-deck">
-          <div class="card">
-            <img
-              class="card-img-top"
-              src= ${presidentcardimagesrc}
-            />
-            <div class="card-body">
-              <h5 class="card-title">${presidentcardHeader}</h5>
-              <small class="text-muted">${presidentpartytext}</small>
-              <p class="card-text">
-               ${presidentcardBody}
-              </p>
-            </div>
-            <div class="card-footer">
-              <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-secondary">
-                  <input
-                    type="radio"
-                    name="options"
-                    id="option1"
-                    autocomplete="off"
-                    checked
-                  />
-                  Choose
-                </label>
-                <label class="btn btn-secondary">
-                  <input
-                    type="radio"
-                    name="options"
-                    id="option3"
-                    autocomplete="off"
-                  />
-                  Oppose
-                </label>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <img
-              class="card-img-top"
-              src= ${presidentcardimagesrc}
-              alt="Card image cap"
-            />
-            <div class="card-body">
-              <h5 class="card-title">${presidentcardHeader}</h5>
-              <small class="text-muted">${presidentpartytext}</small>
-              <p class="card-text">
-              ${presidentcardBody}
-              </p>
-            </div>
-            <div class="card-footer">
-              <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-secondary">
-                  <input
-                    type="radio"
-                    name="options"
-                    id="option1"
-                    autocomplete="off"
-                    checked
-                  />
-                  Choose
-                </label>
-                <label class="btn btn-secondary">
-                  <input
-                    type="radio"
-                    name="options"
-                    id="option3"
-                    autocomplete="off"
-                  />
-                  Oppose
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+</div>
     `;
 
-    $("#presidentcards").append(presidenthtmlSection); 
+    presidentcards.append(presidenthtmlSection);
   }
 
   function render(measures) {
