@@ -3,54 +3,30 @@ $(document).ready(() => {
   const signUpForm = $("form.signup");
   const emailInput = $("input#email-input");
   const passwordInput = $("input#password-input");
-  const addressInput = $("input#inputAddress");
-  const cityInput = $("input#inputCity");
-  const stateInput = $("#inputState");
-  const zipInput = $("input#inputZip");
 
   // When the signup button is clicked, we validate the email and password are not blank
   signUpForm.on("submit", event => {
     event.preventDefault();
     const userData = {
       email: emailInput.val().trim(),
-      password: passwordInput.val().trim(),
-      address: addressInput.val().trim(),
-      city: cityInput.val().trim(),
-      state: stateInput.find(":selected").text(),
-      zipcode: zipInput.val().trim()
+      password: passwordInput.val().trim()
     };
+
     if (!userData.email || !userData.password) {
       return;
     }
-
-    console.log(userData)
     // If we have an email and password, run the signUpUser function
-    signUpUser(
-      userData.email,
-      userData.password,
-      userData.address,
-      userData.city,
-      userData.state,
-      userData.zipcode
-    );
+    signUpUser(userData.email, userData.password);
     emailInput.val("");
     passwordInput.val("");
-    addressInput.val("");
-    cityInput.val("");
-    stateInput.val("");
-    zipInput.val("");
   });
 
   // Does a post to the signup route. If successful, we are redirected to the members page
   // Otherwise we log any errors
-  function signUpUser(email, password, address, city, state, zipcode) {
+  function signUpUser(email, password) {
     $.post("/api/signup", {
       email: email,
-      password: password,
-      address: address,
-      city: city,
-      state: state,
-      zipcode: zipcode
+      password: password
     })
       .then(() => {
         window.location.replace("/members");

@@ -21,10 +21,7 @@ module.exports = function(app) {
     db.User.create({
       email: req.body.email,
       password: req.body.password,
-      address: req.body.address,
-      city: req.body.city,
-      state: req.body.state,
-      zipcode: req.body.zipcode
+  
     })
       .then(() => {
         res.redirect(307, "/api/login");
@@ -55,6 +52,16 @@ module.exports = function(app) {
       });
     }
   });
+
+  app.get("/api/candidates", function(req, res) {
+    var dbQuery = "SELECT * FROM candidates";
+
+    connection.query(dbQuery, function(err, result) {
+      if (err) throw err;
+      res.render(result);
+    });
+  });
+
 };
 /* 
 const axios = require("axios");

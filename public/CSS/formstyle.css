@@ -1,5 +1,11 @@
 * {
   font-family: "Montserrat", sans-serif;
+  color: white;
+}
+
+h2 {
+  font-family: "Montserrat", sans-serif;
+  color: white;
 }
 
 body {
@@ -12,79 +18,25 @@ form.login {
   margin-top: 30px;
 }
 
-.topimage {
-  width: 100%;
-  height: auto;
-  background-size: cover;
-  padding: 0px;
-  margin: 0px;
-  background-repeat: no-repeat;
-  background-position: top;
+header {
   position: relative;
-  margin-bottom: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
-.topimagemobile {
-  display: none;
-}
-
-.picture-opacity {
-  position: absolute;
-  top: 0px;
-  height: 60vh;
-  width: 100%;
-  background-size: cover;
-  background: linear-gradient(
-    to bottom,
-    rgba(194, 194, 194, 0),
-    rgb(244, 244, 244)
-  );
-}
-
-.signupcont {
-  margin-top: 20px;
-  padding-bottom: 10px;
+.logo {
+  margin-top: 5%;
+  margin-bottom: 10px;
   width: 50%;
-  background-color: white;
-  border-radius: 20px;
-  opacity: 93%;
-}
-
-.logincont {
-  margin-top: 40px;
-  padding-bottom: 10px;
-  width: 75%;
-  background-color: white;
-  border-radius: 20px;
-  opacity: 95%;
+  height: auto;
 }
 
 
-@media (max-width: 1400px) {
-  .logincont {
-    width: 80%;
-  }
-  .signupcont {
-    width: 80%;
-  }
-}
-
-@media (max-width: 600px) {
-  .topimage {
-    display: none;
-  }
-  .topimagemobile {
-    width: 100%;
-    height: auto;
-    display: block;
-    position: relative;
-  }
-  .logincont {
-    margin-top: 50px;
-    width: 90%;
-  }
-  .signupcont {
-    margin-top: 50px;
+@media (max-width: 800px) {
+  .logo {
     width: 90%;
   }
 }
