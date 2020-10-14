@@ -52,17 +52,6 @@ module.exports = function(app) {
     }
   });
 
-  app.get("/api/candidates", function(req, res) {
-    var dbQuery = "SELECT * FROM candidates";
-
-    connection.query(dbQuery, function(err, result) {
-      if (err) {
-        throw err;
-      }
-      res.render(result);
-    });
-  });
-
   app.get("/api/googleapi", function(req, res) {
     const { google } = require("googleapis");
 
@@ -89,8 +78,19 @@ module.exports = function(app) {
     return res.json(info);
   });
 
-  app.get("/api/votes", function(req, res) {
-    db.Vote.findAll({})
+  app.get("/api/candidates", function(req, res) {
+    db.Candidate.findAll({})
+      .then((data) => {
+        res.json(data);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(401).json(err);
+      });
+  });
+
+  app.get("/api/propositions", function(req, res) {
+    db.Proposition.findAll({})
       .then((data) => {
         res.json(data);
       })
