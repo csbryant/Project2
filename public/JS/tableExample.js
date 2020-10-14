@@ -8,10 +8,12 @@ $(document).ready(() => {
   addressBtn.click("submit", event => {
     event.preventDefault();
     const inputAddress = addressInput.val().trim();
-    console.log(inputAddress);
+    const replaceAddress = inputAddress.split(" ").join("+");
+    console.log(replaced);
   });
 
   //Array to push local measures
+
   var measures = [];
   var presedentialCandidates = [];
 
@@ -52,8 +54,7 @@ $(document).ready(() => {
     const presidentcardBody = presidents.ballotpedia_candidate_summary;
     const presidentcards = $("#presidentcards");
 
-
-  const presidenthtmlSection = `
+    const presidenthtmlSection = `
       <div class="col-6">
       <div class="card">
     <img
@@ -73,6 +74,7 @@ $(document).ready(() => {
             name="options"
             id="option1"
             autocomplete="off"
+            value="true"
             checked
           />
           Choose
@@ -83,6 +85,7 @@ $(document).ready(() => {
             name="options"
             id="option3"
             autocomplete="off"
+            value="false"
           />
           Oppose
         </label>
@@ -124,6 +127,7 @@ $(document).ready(() => {
                 name="options"
                 id="option1"
                 autocomplete="off"
+                
                 checked
               />
               Choose
@@ -144,10 +148,14 @@ $(document).ready(() => {
     $("#propositionscards").append(measureshtmlSection);
   }
 
-  /* $.ajax({
-    method: "GET",
-    url: "/api/googleapi"
-  }).then(function(response) {
-    console.log(response);
-  }); */
+  $(document).click(function(e) {
+    console.log(this);
+
+    if ($("this").val() === "true") {
+      alert("True");
+    } else if ($("#option3").val() === "false") {
+      alert("False");
+    }
+  });
 });
+
