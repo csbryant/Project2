@@ -8,8 +8,8 @@ $(document).ready(() => {
   addressBtn.click("submit", event => {
     event.preventDefault();
     const inputAddress = addressInput.val().trim();
-    const replaceAddress = inputAddress.split(" ").join("+");
-    console.log(replaced);
+    const replacedAddress = inputAddress.split(" ").join("+");
+    console.log(replacedAddress);
   });
 
   //Array to push local measures
