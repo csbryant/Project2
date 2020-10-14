@@ -3,13 +3,12 @@ CREATE DATABASE cheatsheet_db;
 
 USE cheatsheet_db;
 
-CREATE TABLE candidates (
-    id INT NOT NULL AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL,
-    office_name VARCHAR(100) NOT NULL,
-    summary VARCHAR(300) NOT NULL,
-    party VARCHAR(100) NOT NULL,
-    PRIMARY KEY (id)
+CREATE TABLE Candidate (
+    name INT NOT NULL,
+    vote BOOLEAN NOT NULL DEFAULT FALSE
 );
 
-SELECT * FROM candidates;
+CREATE TABLE Proposition (
+    name INT NOT NULL,
+    vote BOOLEAN NOT NULL DEFAULT FALSE
+);
