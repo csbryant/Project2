@@ -10,7 +10,7 @@ module.exports = function(app) {
     // Sending back a password, even a hashed password, isn't a good idea
     res.json({
       email: req.user.email,
-      id: req.user.id
+      id: req.user.id,
     });
   });
 
@@ -20,12 +20,12 @@ module.exports = function(app) {
   app.post("/api/signup", (req, res) => {
     db.User.create({
       email: req.body.email,
-      password: req.body.password
+      password: req.body.password,
     })
       .then(() => {
         res.redirect(307, "/api/login");
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
         res.status(401).json(err);
       });
@@ -47,7 +47,7 @@ module.exports = function(app) {
       // Sending back a password, even a hashed password, isn't a good idea
       res.json({
         email: req.user.email,
-        id: req.user.id
+        id: req.user.id,
       });
     }
   });
@@ -65,32 +65,41 @@ module.exports = function(app) {
 
   app.get("/api/googleapi", function(req, res) {
     const { google } = require("googleapis");
-  
+
     const civicinfo = google.civicinfo({
       version: "v2",
-      auth: "AIzaSyDsppdMS3wxP88R7QYqvWbyYk7HavF5Y4U"
+      auth: "AIzaSyDsppdMS3wxP88R7QYqvWbyYk7HavF5Y4U",
     });
     const params = {
-      address: "1439 Blake Avenue Los Angeles CA 90031"
+      address: "1439 Blake Avenue Los Angeles CA 90031",
     };
     // get the civic details
     let info;
 
     civicinfo.elections
       .voterInfoQuery(params)
-      .then(res => {
+      .then((res) => {
         console.log(res.data.dropOffLocations);
-        return info = res.data.dropOffLocations;
+        return (info = res.data.dropOffLocations);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
 
     return res.json(info);
   });
+
+  app.get("/api/votes", function(req, res) {
+    db.Vote.findAll({})
+      .then((data) => {
+        res.json(data);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(401).json(err);
+      });
+  });
 };
-
-
 
 /* 
 const axios = require("axios");

@@ -50,7 +50,7 @@ $(document).ready(() => {
     const presidentcardHeader = presidents.ballot_item_display_name;
     const presidentpartytext = presidents.party;
     const presidentcardBody = presidents.ballotpedia_candidate_summary;
-    const presidentcards = $("#presidentcards")
+    const presidentcards = $("#presidentcards");
 
 
   const presidenthtmlSection = `
