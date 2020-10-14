@@ -53,17 +53,6 @@ module.exports = function(app) {
     }
   });
 
-  app.get("/api/candidates", function(req, res) {
-    var dbQuery = "SELECT * FROM candidates";
-
-    connection.query(dbQuery, function(err, result) {
-      if (err) {
-        throw err;
-      }
-      res.render(result);
-    });
-  });
-
   app.get("/api/googleapi", function(req, res) {
     const civicinfo = google.civicinfo({
       version: "v2",
@@ -89,9 +78,26 @@ module.exports = function(app) {
       });
   });
 
+
   app.get("/api/votes", function(req, res) {
     db.Vote.findAll({})
       .then(data => {
+
+  app.get("/api/candidates", function(req, res) {
+    db.Candidate.findAll({})
+      .then((data) => {
+        res.json(data);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(401).json(err);
+      });
+  });
+
+  app.get("/api/propositions", function(req, res) {
+    db.Proposition.findAll({})
+      .then((data) => {
+
         res.json(data);
       })
       .catch(err => {
