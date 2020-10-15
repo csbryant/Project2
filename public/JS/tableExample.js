@@ -172,7 +172,7 @@ $(document).ready(() => {
 
   $(document).click(function(event) {
     event.preventDefault();
-    console.log($(this).attr("for"));
+    console.log($(this));
     console.log($("#presidentchoice label.active input").val());
     console.log($("#presidentchoice label.active").data("value"));
 
