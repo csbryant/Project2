@@ -4,4 +4,12 @@ $(document).ready(() => {
   $.get("/api/user_data").then(data => {
     $(".member-name").text(data.email);
   });
+
+  $.get("/api/googleapi").then(data => {
+    console.log(data);
+  });
+
+  $.post("/api/votes").then(data => {
+    console.log(data);
+  });
 });
