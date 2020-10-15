@@ -82,6 +82,7 @@ module.exports = function(app) {
     db.Vote.findAll({})
       .then(data => {
         res.json(data);
+        console.log(data)
       })
       .catch(err => {
         console.log(err);

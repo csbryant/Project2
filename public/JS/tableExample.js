@@ -87,9 +87,9 @@ $(document).ready(() => {
       <small class="text-muted">${presidentpartytext}</small>
     </div>
     <div class="card-footer">
-      <div data-value=${presidentid} class="btn-group" role="group" aria-label="choices">
-        <button value="true" type="button" class="choicesbtn btn btn-secondary">Choose</button>
-        <button value="false" type="button" class="choicesbtn btn btn-secondary">Oppose</button>
+      <div class="btn-group" role="group" aria-label="choices">
+        <button data-id=${presidentid} data-state="true" type="button" class="choicesbtn btn btn-secondary">Choose</button>
+        <button data-id=${presidentid} data-state="false" type="button" class="choicesbtn btn btn-secondary">Oppose</button>
        </div>
     </div>
   </div>
@@ -97,6 +97,8 @@ $(document).ready(() => {
     `;
 
     presidentcards.append(presidenthtmlSection);
+
+    buttonClick();
   }
 
   //function to render Measures
@@ -123,41 +125,46 @@ $(document).ready(() => {
     </div>
     <div class="card-footer">
     <div class="card-footer">
-    <div data-value=${measureid} class=" btn-group" role="group" aria-label="choices">
-      <button value="true" type="button" class="choicesbtn btn btn-secondary">Choose</button>
-      <button value="false" type="button" class="choicesbtn btn btn-secondary">Oppose</button>
+    <div  class=" btn-group" role="group" aria-label="choices">
+      <button data-id=${measureid} data-state="true" type="button" class="choicesbtn btn btn-secondary">Choose</button>
+      <button data-id=${measureid} data-state="false" type="button" class="choicesbtn btn btn-secondary">Oppose</button>
      </div>
   </div>
   </div>`;
 
     $("#propositionscards").append(measureshtmlSection);
+    buttonClick();
   }
-  
-  $(document).click("submit", function(event) {
-    event.preventDefault();
 
-    if ($(".choicesbtn").clicked == true) {
-      console.log("clicked");
-    }
+  /*   $(function() {
+    $(".choicesbtn").on("click", function(event) {
+      console.log($(this).data("id"));
+    });
+  }); */
 
-    console.log($(this));
+  function buttonClick() {
+    $(".choicesbtn").on("click", function(event) {
+      event.preventDefault();
 
-    console.log($(".choicesbtn").val());
-    console.log($(".choicesbtn").data("value"));
+      const id = $(this).data("id");
+      const choicestate = $(this).data("state");
 
-    var votechoice = {
-      voteid: "0",
-      choice: "0"
-    };
+      const votechoice = {
+        voteid: id,
+        choice: choicestate
+      };
 
-    // Send the POST request.
-    /*    $.ajax("/api/votes", {
-      type: "POST",
-      data: votechoice
-    }).then(function() {
-      console.log("voted");
-      // Reload the page to get the updated list
-      location.reload();
-    }); */
-  });
+      console.log(votechoice);
+
+      // Send the POST request.
+      $.ajax("/api/votes", {
+        type: "POST",
+        data: votechoice
+      }).then(function() {
+        console.log("voted");
+        // Reload the page to get the updated list
+        location.reload();
+      });
+    });
+  }
 });
