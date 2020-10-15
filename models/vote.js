@@ -3,16 +3,16 @@ const bcrypt = require("bcryptjs");
 
 module.exports = function (sequelize, DataTypes) {
   // Creates a "Character" model that matches up with DB
-  const Candidate = sequelize.define("Candidate", {
+  const Vote = sequelize.define("Vote", {
     name: { type: DataTypes.INTEGER, allowNull: false },
-    vote: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false }
+    choose: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false }
   });
-  Candidate.associate = function (models) {
-    Candidate.belongsTo(models.User, {
+  Vote.associate = function (models) {
+    Vote.belongsTo(models.User, {
       foreignKey: {
         allowNull: false
       }
     });
   };
-  return Candidate;
+  return Vote;
 };
