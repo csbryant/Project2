@@ -9,29 +9,24 @@ $(document).ready(() => {
     event.preventDefault();
     const inputAddress = addressInput.val().trim();
     const replacedAddress = inputAddress.split(" ").join("+");
-    console.log(replacedAddress);
+    grabMeasures(replacedAddress);
   });
 
-  //Array to push local measures
+  //Grab Presidential Candidates from API
 
-  var measures = [];
+  const presidentwevoteUrl =
+    "https://api.wevoteusa.org/apis/v1/voterBallotItemsRetrieve/?csrfmiddlewaretoken=ncRBy6zydqnBkz9zk2c4rOFh3nrxrLclLLWFFGvI9wt2L2WaehNtniMbpMifG6kl&voter_device_id=e9d5HVqN5duYmmWNDoonK5zyJ2KZh2CsHhnunVRpSnKlFF4sWdRKLBuOy5rESt1znScUhtcItDAxgk78ca7uQiBc&google_civic_election_id=&ballot_returned_we_vote_id=&ballot_location_shortcut=";
+
+  //Presidential Candidate Array
+
   var presedentialCandidates = [];
 
-  const address = "1431+Walnut+Ave+Long+beach+CA+90813";
-  const queryU =
-    "https://api.wevoteusa.org/apis/v1/voterAddressSave/?csrfmiddlewaretoken=mRyhv4vjUAzkGQMWxLZrswUw7BUG6NHe6ojzNTMqHzcWMOVR7vrbYtQvaQZ96m2v&voter_device_id=AE08n1yZqrtkFWv7jO9BeYESRiGQgQoYBfZ9TUxvnfnU0YANSl5NtZVyPGsFrKtXS0zmceW77e6ByyvKm2ky3p5F&text_for_map_search=" +
-    address;
-
-  // begin first ajax call
+  // Presidential Candidate Ajax Call
   $.ajax({
     method: "GET",
-    url: queryU
-  }).then(function(response) {
-    const measuresdata = response.ballot_item_list.filter(function(MEASURE) {
-      return MEASURE.kind_of_ballot_item === "MEASURE";
-    });
-
-    const federaldata = response.ballot_item_list.filter(function(federal) {
+    url: presidentwevoteUrl
+  }).then(function(res) {
+    const federaldata = res.ballot_item_list.filter(function(federal) {
       return federal.race_office_level === "Federal";
     });
 
@@ -39,14 +34,37 @@ $(document).ready(() => {
       presedentialCandidates.push(federaldata[1].candidate_list[index]);
     }
 
-    for (var index = 0; index < measuresdata.length; index++) {
-      measures.push(measuresdata[index]);
-    }
-
     presedentialCandidates.forEach(renderPresidents);
-    measures.forEach(render);
   });
 
+  function grabMeasures(addressparameter) {
+    //Array to push local measures
+
+    var measures = [];
+
+    const queryU =
+      "https://api.wevoteusa.org/apis/v1/voterAddressSave/?csrfmiddlewaretoken=mRyhv4vjUAzkGQMWxLZrswUw7BUG6NHe6ojzNTMqHzcWMOVR7vrbYtQvaQZ96m2v&voter_device_id=AE08n1yZqrtkFWv7jO9BeYESRiGQgQoYBfZ9TUxvnfnU0YANSl5NtZVyPGsFrKtXS0zmceW77e6ByyvKm2ky3p5F&text_for_map_search=" +
+      addressparameter;
+
+    // Meaures Ajax Call
+
+    $.ajax({
+      method: "GET",
+      url: queryU
+    }).then(function(response) {
+      const measuresdata = response.ballot_item_list.filter(function(MEASURE) {
+        return MEASURE.kind_of_ballot_item === "MEASURE";
+      });
+
+      for (var index = 0; index < measuresdata.length; index++) {
+        measures.push(measuresdata[index]);
+      }
+
+      measures.forEach(render);
+    });
+  }
+
+  // Function to Render Presidents
   function renderPresidents(presidents) {
     const presidentcardimagesrc = presidents.candidate_photo_url_large;
     const presidentcardHeader = presidents.ballot_item_display_name;
@@ -98,6 +116,7 @@ $(document).ready(() => {
     presidentcards.append(presidenthtmlSection);
   }
 
+  //function to render Measures
   function render(measures) {
     const measurecardHeader = measures.ballot_item_display_name;
     const measurecardBody = measures.measure_text;
@@ -127,7 +146,7 @@ $(document).ready(() => {
                 name="options"
                 id="option1"
                 autocomplete="off"
-                
+                value="true"
                 checked
               />
               Choose
@@ -137,6 +156,7 @@ $(document).ready(() => {
                 type="radio"
                 name="options"
                 id="option3"
+                value="false"
                 autocomplete="off"
               />
               Oppose
@@ -148,7 +168,7 @@ $(document).ready(() => {
     $("#propositionscards").append(measureshtmlSection);
   }
 
-  $(document).click(function(e) {
+  /*   $(document).click(function(e) {
     console.log(this);
 
     if ($("this").val() === "true") {
@@ -156,6 +176,5 @@ $(document).ready(() => {
     } else if ($("#option3").val() === "false") {
       alert("False");
     }
-  });
+  }); */
 });
-
