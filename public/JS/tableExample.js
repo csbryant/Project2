@@ -71,6 +71,7 @@ $(document).ready(() => {
     const presidentpartytext = presidents.party;
     const presidentcardBody = presidents.ballotpedia_candidate_summary;
     const presidentcards = $("#presidentcards");
+    const presidentid = presidents.id;
 
     const presidenthtmlSection = `
       <div class="col-6">
@@ -85,23 +86,23 @@ $(document).ready(() => {
       <small class="text-muted">${presidentpartytext}</small>
     </div>
     <div class="card-footer">
-      <div class="btn-group btn-group-toggle" data-toggle="buttons">
-        <label class="btn btn-secondary">
+      <div  class="btn-group btn-group-toggle" id="presidentchoice" data-toggle="buttons">
+        <label data-value=${presidentid} for="choose"  class="btn btn-secondary">
           <input
             type="radio"
-            name="options"
-            id="option1"
+            name="choose"
+            id= "choose"
             autocomplete="off"
             value="true"
             checked
           />
           Choose
         </label>
-        <label class="btn btn-secondary">
+        <label data-value=${presidentid} for="oppose" class="btn btn-secondary">
           <input
             type="radio"
-            name="options"
-            id="option3"
+            name="oppose"
+            id="oppose"
             autocomplete="off"
             value="false"
           />
@@ -122,6 +123,7 @@ $(document).ready(() => {
     const measurecardBody = measures.measure_text;
     const measureyesBody = measures.yes_vote_description;
     const measurenoBody = measures.no_vote_description;
+    const measureid = measures.local_ballot_order;
 
     const measureshtmlSection = `
     <div class="card text-center">
@@ -138,24 +140,24 @@ $(document).ready(() => {
       </div>
     </div>
     <div class="card-footer">
-        <div class="btn-group btn-group-toggle propvote"      
+        <div  class="btn-group btn-group-toggle propvote" id="measurechoice"     
             data-toggle="buttons">
-             <label class="btn btn-secondary">
+             <label data-value=${measureid} for="choose" class="btn btn-secondary">
               <input
                 type="radio"
-                name="options"
-                id="option1"
+                name="choose"
+                id="choose"
                 autocomplete="off"
                 value="true"
                 checked
               />
               Choose
             </label>
-            <label class="btn btn-secondary">
+            <label data-value=${measureid} for="oppose" class="btn btn-secondary">
               <input
                 type="radio"
-                name="options"
-                id="option3"
+                name="oppose"
+                id="oppose"
                 value="false"
                 autocomplete="off"
               />
@@ -168,13 +170,24 @@ $(document).ready(() => {
     $("#propositionscards").append(measureshtmlSection);
   }
 
-  /*   $(document).click(function(e) {
-    console.log(this);
+  $(document).click(function(event) {
+    event.preventDefault();
+    console.log($("#presidentchoice label.active input").val());
+    console.log($("#presidentchoice label.active").data("value"));
 
-    if ($("this").val() === "true") {
-      alert("True");
-    } else if ($("#option3").val() === "false") {
-      alert("False");
-    }
-  }); */
+    var votechoice = {
+      voteid: "0",
+      choice: $("#presidentchoice label.active input").val()
+    };
+
+    // Send the POST request.
+    /*    $.ajax("/api/votes", {
+      type: "POST",
+      data: votechoice
+    }).then(function() {
+      console.log("voted");
+      // Reload the page to get the updated list
+      location.reload();
+    }); */
+  });
 });
