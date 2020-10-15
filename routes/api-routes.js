@@ -78,19 +78,8 @@ module.exports = function(app) {
     return res.json(info);
   });
 
-  app.get("/api/candidates", function(req, res) {
-    db.Candidate.findAll({})
-      .then((data) => {
-        res.json(data);
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(401).json(err);
-      });
-  });
-
-  app.get("/api/propositions", function(req, res) {
-    db.Proposition.findAll({})
+  app.get("/api/votes", function(req, res) {
+    db.Vote.findAll({})
       .then((data) => {
         res.json(data);
       })

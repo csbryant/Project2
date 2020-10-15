@@ -20,13 +20,7 @@ module.exports = function(sequelize, DataTypes) {
   });
 
   User.associate = function (models) {
-    User.hasMany(models.Candidate, {
-      onDelete: "cascade"
-    });
-  };
-
-  User.associate = function (models) {
-    User.hasMany(models.Proposition, {
+    User.hasMany(models.Vote, {
       onDelete: "cascade"
     });
   };
