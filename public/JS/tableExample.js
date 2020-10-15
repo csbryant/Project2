@@ -4,6 +4,7 @@ $(document).ready(() => {
   //Getting Users Address
   const addressInput = $("#address-input");
   const addressBtn = $("#address-btn");
+  const choiceBtn = $(".choicesbtn");
 
   addressBtn.click("submit", event => {
     event.preventDefault();
@@ -86,29 +87,10 @@ $(document).ready(() => {
       <small class="text-muted">${presidentpartytext}</small>
     </div>
     <div class="card-footer">
-      <div  class="btn-group btn-group-toggle" id="presidentchoice" data-toggle="buttons">
-        <label data-value=${presidentid} for="choose"  class="btn btn-secondary">
-          <input
-            type="radio"
-            name="choose"
-            id= "choose"
-            autocomplete="off"
-            value="true"
-            checked
-          />
-          Choose
-        </label>
-        <label data-value=${presidentid} for="oppose" class="btn btn-secondary">
-          <input
-            type="radio"
-            name="oppose"
-            id="oppose"
-            autocomplete="off"
-            value="false"
-          />
-          Oppose
-        </label>
-      </div>
+      <div data-value=${presidentid} class="btn-group" role="group" aria-label="choices">
+        <button value="true" type="button" class="choicesbtn btn btn-secondary">Choose</button>
+        <button value="false" type="button" class="choicesbtn btn btn-secondary">Oppose</button>
+       </div>
     </div>
   </div>
 </div>
@@ -140,45 +122,32 @@ $(document).ready(() => {
       </div>
     </div>
     <div class="card-footer">
-        <div  class="btn-group btn-group-toggle propvote" id="measurechoice"     
-            data-toggle="buttons">
-             <label data-value=${measureid} for="choose" class="btn btn-secondary">
-              <input
-                type="radio"
-                name="choose"
-                id="choose"
-                autocomplete="off"
-                value="true"
-                checked
-              />
-              Choose
-            </label>
-            <label data-value=${measureid} for="oppose" class="btn btn-secondary">
-              <input
-                type="radio"
-                name="oppose"
-                id="oppose"
-                value="false"
-                autocomplete="off"
-              />
-              Oppose
-            </label>
-          </div>
-    </div>
+    <div class="card-footer">
+    <div data-value=${measureid} class=" btn-group" role="group" aria-label="choices">
+      <button value="true" type="button" class="choicesbtn btn btn-secondary">Choose</button>
+      <button value="false" type="button" class="choicesbtn btn btn-secondary">Oppose</button>
+     </div>
+  </div>
   </div>`;
 
     $("#propositionscards").append(measureshtmlSection);
   }
-
-  $(document).click(function(event) {
+  
+  $(document).click("submit", function(event) {
     event.preventDefault();
+
+    if ($(".choicesbtn").clicked == true) {
+      console.log("clicked");
+    }
+
     console.log($(this));
-    console.log($("#presidentchoice label.active input").val());
-    console.log($("#presidentchoice label.active").data("value"));
+
+    console.log($(".choicesbtn").val());
+    console.log($(".choicesbtn").data("value"));
 
     var votechoice = {
       voteid: "0",
-      choice: $("#presidentchoice label.active input").val()
+      choice: "0"
     };
 
     // Send the POST request.
