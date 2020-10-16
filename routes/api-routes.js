@@ -82,7 +82,21 @@ module.exports = function(app) {
     db.Vote.findAll({})
       .then(data => {
         res.json(data);
-        console.log(data)
+        console.log(data);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(401).json(err);
+      });
+  });
+
+  app.post("/api/votes", function(req, res) {
+    db.Vote.create({
+      name: req.body.name,
+      choice: req.body.choice
+    })
+      .then(data => {
+        console.log(data);
       })
       .catch(err => {
         console.log(err);

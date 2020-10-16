@@ -1,17 +1,16 @@
 // This code is for rendering all measures and cadidate by location.
 
 $(document).ready(() => {
-  //Grabbing Users Address for Measures API &
+  //Getting Users Address
   const addressInput = $("#address-input");
   const addressBtn = $("#address-btn");
-  const choiceBtn = $(".choicesbtn");
 
   addressBtn.click("submit", event => {
     event.preventDefault();
     const inputAddress = addressInput.val().trim();
     const replacedAddress = inputAddress.split(" ").join("+");
     grabMeasures(replacedAddress);
-    grabLocation(inputAddress);
+    grabLocation();
   });
   //End of code to grab Users Address
 
@@ -71,16 +70,18 @@ $(document).ready(() => {
         measures.push(measuresdata[index]);
       }
 
-      measures.forEach(render);
+      measures.forEach(renderMeasures);
     });
   }
 
-  //Grab drop off locations from google APp
-  function grabLocation(address) {
+  function grabLocation() {
     $.get("/api/googleapi").then(data => {
       const locations = data.slice(0, 5);
       console.log(locations);
-      address.forEach(renderLocations);
+
+      locations.forEach(renderLocations);
+
+      //function to render Locations
     });
   }
   //End of grabbing google api
@@ -90,7 +91,6 @@ $(document).ready(() => {
     const presidentcardimagesrc = presidents.candidate_photo_url_large;
     const presidentcardHeader = presidents.ballot_item_display_name;
     const presidentpartytext = presidents.party;
-    const presidentcardBody = presidents.ballotpedia_candidate_summary;
     const presidentcards = $("#presidentcards");
     const presidentid = presidents.id;
 
@@ -122,7 +122,7 @@ $(document).ready(() => {
   // End of code to render presidents
 
   //function to render Measures
-  function render(measures) {
+  function renderMeasures(measures) {
     const measurecardHeader = measures.ballot_item_display_name;
     const measurecardBody = measures.measure_text;
     const measureyesBody = measures.yes_vote_description;
@@ -159,60 +159,61 @@ $(document).ready(() => {
 
   //function to render Locations
   function renderLocations(locations) {
-    for (let i = 0; i < locations.length; i++) {
-      const locName = locations[i].address.locationName;
-      const locStreet = locations[i].address.line1;
-      const locCity = locations[i].address.city;
-      const locState = locations[i].address.state;
-      const locZip = locations[i].address.zip;
-      const ballot = $("#ballot");
-      const locationshtmlSection = `
-        <div id="locations" class="card text-center">
-        <div class="card-header">
-        ${locName}
-        </div>
-        <div class="card-body">
-        <p class="card-text">${locStreet}${locCity}${locState}${locZip}</p>
-        </div>
-        </div>`;
-      ballot.append(locationshtmlSection);
-    }
+    const locName = locations.address.locationName;
+    const locStreet = locations.address.line1;
+    const locCity = locations.address.city;
+    const locState = locations.address.state;
+    const locZip = locations.address.zip;
+
+    const locationshtmlSection = `
+  <div id="locations" class="card text-center">
+  <div class="card-header">
+  ${locName}
+  </div>
+  <div class="card-body">
+  <p class="card-text">${locStreet}${locCity}${locState}${locZip}</p>
+  </div>
+  </div>`;
+
+    $("#ballot").append(locationshtmlSection);
   }
-  // End of code to render locations
+  //End of code to render locations
 
   //Grabbing users voting results
-
-  /*   $(function() {
-    $(".choicesbtn").on("click", function(event) {
-      console.log($(this).data("id"));
-    });
-  }); */
-
   function buttonClick() {
     $(".choicesbtn").on("click", function(event) {
       event.preventDefault();
 
-      const id = $(this).data("id");
-      const choicestate = $(this).data("state");
+      const name = $(this).data("id");
+      const choice = $(this).data("state");
 
-      const votechoice = {
-        voteid: id,
-        choice: choicestate
+      const userVote = {
+        name: name,
+        choice: choice
       };
+      console.log(userVote);
+      posttodatabase(userVote.name, userVote.choice);
+    });
+  }
 
-      console.log(votechoice);
+  function posttodatabase(name, choice) {
+    $.post("/api/votes", {
+      name: name,
+      choice: choice
+    }).then(() => {
+      console.log("voted");
+      // Reload the page to get the updated list
+      location.reload();
+    });
 
-      $.post("/api/votes").then(data => {});
-
-      // Send the POST request.
-      /*    $.ajax("/api/votes", {
-        type: "PUT",
+    // Send the POST request.
+    /*    $.ajax("/api/votes", {
+        type: "POST",
         data: votechoice
       }).then(function() {
         console.log("voted");
         // Reload the page to get the updated list
         location.reload();
       }); */
-    });
   }
 });
