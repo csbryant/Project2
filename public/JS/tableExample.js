@@ -1,7 +1,7 @@
 // This code is for rendering all measures and cadidate by location.
 
 $(document).ready(() => {
-  //Grabbing Users Address for Measures API &
+  //Getting Users Address
   const addressInput = $("#address-input");
   const addressBtn = $("#address-btn");
 
@@ -10,7 +10,7 @@ $(document).ready(() => {
     const inputAddress = addressInput.val().trim();
     const replacedAddress = inputAddress.split(" ").join("+");
     grabMeasures(replacedAddress);
-    grabLocation(inputAddress);
+    grabLocation();
   });
   //End of code to grab Users Address
 
@@ -70,16 +70,18 @@ $(document).ready(() => {
         measures.push(measuresdata[index]);
       }
 
-      measures.forEach(render);
+      measures.forEach(renderMeasures);
     });
   }
 
-  //Grab drop off locations from google APp
-  function grabLocation(address) {
+  function grabLocation() {
     $.get("/api/googleapi").then(data => {
       const locations = data.slice(0, 5);
       console.log(locations);
-      address.forEach(renderLocations);
+
+      locations.forEach(renderLocations);
+
+      //function to render Locations
     });
   }
   //End of grabbing google api
@@ -120,7 +122,7 @@ $(document).ready(() => {
   // End of code to render presidents
 
   //function to render Measures
-  function render(measures) {
+  function renderMeasures(measures) {
     const measurecardHeader = measures.ballot_item_display_name;
     const measurecardBody = measures.measure_text;
     const measureyesBody = measures.yes_vote_description;
@@ -157,24 +159,23 @@ $(document).ready(() => {
 
   //function to render Locations
   function renderLocations(locations) {
-    for (let i = 0; i < locations.length; i++) {
-      const locName = locations[i].address.locationName;
-      const locStreet = locations[i].address.line1;
-      const locCity = locations[i].address.city;
-      const locState = locations[i].address.state;
-      const locZip = locations[i].address.zip;
-      const ballot = $("#ballot");
-      const locationshtmlSection = `
-        <div id="locations" class="card text-center">
-        <div class="card-header">
-        ${locName}
-        </div>
-        <div class="card-body">
-        <p class="card-text">${locStreet}${locCity}${locState}${locZip}</p>
-        </div>
-        </div>`;
-      ballot.append(locationshtmlSection);
-    }
+    const locName = locations.address.locationName;
+    const locStreet = locations.address.line1;
+    const locCity = locations.address.city;
+    const locState = locations.address.state;
+    const locZip = locations.address.zip;
+
+    const locationshtmlSection = `
+  <div id="locations" class="card text-center">
+  <div class="card-header">
+  ${locName}
+  </div>
+  <div class="card-body">
+  <p class="card-text">${locStreet}${locCity}${locState}${locZip}</p>
+  </div>
+  </div>`;
+
+    $("#ballot").append(locationshtmlSection);
   }
   //End of code to render locations
 
