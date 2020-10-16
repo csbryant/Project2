@@ -205,15 +205,5 @@ $(document).ready(() => {
       // Reload the page to get the updated list
       location.reload();
     });
-
-    // Send the POST request.
-    /*    $.ajax("/api/votes", {
-        type: "POST",
-        data: votechoice
-      }).then(function() {
-        console.log("voted");
-        // Reload the page to get the updated list
-        location.reload();
-      }); */
   }
 });
