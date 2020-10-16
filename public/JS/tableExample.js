@@ -1,7 +1,7 @@
 // This code is for rendering all measures and cadidate by location.
 
 $(document).ready(() => {
-  //Getting Users Address
+  //Grabbing Users Address for Measures API &
   const addressInput = $("#address-input");
   const addressBtn = $("#address-btn");
   const choiceBtn = $(".choicesbtn");
@@ -11,44 +11,54 @@ $(document).ready(() => {
     const inputAddress = addressInput.val().trim();
     const replacedAddress = inputAddress.split(" ").join("+");
     grabMeasures(replacedAddress);
+    grabLocation(inputAddress);
   });
+  //End of code to grab Users Address
+
+  //Start grab Presidents function
+  grabPresidents();
 
   //Grab Presidential Candidates from API
+  function grabPresidents() {
+    const presidentwevoteUrl =
+      "https://api.wevoteusa.org/apis/v1/voterBallotItemsRetrieve/?csrfmiddlewaretoken=ncRBy6zydqnBkz9zk2c4rOFh3nrxrLclLLWFFGvI9wt2L2WaehNtniMbpMifG6kl&voter_device_id=e9d5HVqN5duYmmWNDoonK5zyJ2KZh2CsHhnunVRpSnKlFF4sWdRKLBuOy5rESt1znScUhtcItDAxgk78ca7uQiBc&google_civic_election_id=&ballot_returned_we_vote_id=&ballot_location_shortcut=";
 
-  const presidentwevoteUrl =
-    "https://api.wevoteusa.org/apis/v1/voterBallotItemsRetrieve/?csrfmiddlewaretoken=ncRBy6zydqnBkz9zk2c4rOFh3nrxrLclLLWFFGvI9wt2L2WaehNtniMbpMifG6kl&voter_device_id=e9d5HVqN5duYmmWNDoonK5zyJ2KZh2CsHhnunVRpSnKlFF4sWdRKLBuOy5rESt1znScUhtcItDAxgk78ca7uQiBc&google_civic_election_id=&ballot_returned_we_vote_id=&ballot_location_shortcut=";
+    //Presidential Candidate Array
+    var presedentialCandidates = [];
 
-  //Presidential Candidate Array
+    // Presidential Candidate Ajax Call
+    $.ajax({
+      method: "GET",
+      url: presidentwevoteUrl
+    }).then(function(res) {
+      const federaldata = res.ballot_item_list.filter(function(federal) {
+        return federal.race_office_level === "Federal";
+      });
 
-  var presedentialCandidates = [];
-
-  // Presidential Candidate Ajax Call
-  $.ajax({
-    method: "GET",
-    url: presidentwevoteUrl
-  }).then(function(res) {
-    const federaldata = res.ballot_item_list.filter(function(federal) {
-      return federal.race_office_level === "Federal";
+      for (
+        var index = 0;
+        index < federaldata[1].candidate_list.length;
+        index++
+      ) {
+        presedentialCandidates.push(federaldata[1].candidate_list[index]);
+      }
+      //Start renderPresidents fucntion
+      presedentialCandidates.forEach(renderPresidents);
     });
+  }
+  //End of ajax call for presidents
 
-    for (var index = 0; index < federaldata[1].candidate_list.length; index++) {
-      presedentialCandidates.push(federaldata[1].candidate_list[index]);
-    }
-
-    presedentialCandidates.forEach(renderPresidents);
-  });
-
+  //Grab Meaures from API
   function grabMeasures(addressparameter) {
     //Array to push local measures
-
     var measures = [];
 
+    // Parameters for Ajax call
     const queryU =
       "https://api.wevoteusa.org/apis/v1/voterAddressSave/?csrfmiddlewaretoken=mRyhv4vjUAzkGQMWxLZrswUw7BUG6NHe6ojzNTMqHzcWMOVR7vrbYtQvaQZ96m2v&voter_device_id=AE08n1yZqrtkFWv7jO9BeYESRiGQgQoYBfZ9TUxvnfnU0YANSl5NtZVyPGsFrKtXS0zmceW77e6ByyvKm2ky3p5F&text_for_map_search=" +
       addressparameter;
 
-    // Meaures Ajax Call
-
+    // Measure Ajax Call
     $.ajax({
       method: "GET",
       url: queryU
@@ -65,7 +75,17 @@ $(document).ready(() => {
     });
   }
 
-  // Function to Render Presidents
+  //Grab drop off locations from google APp
+  function grabLocation(address) {
+    $.get("/api/googleapi").then(data => {
+      const locations = data.slice(0, 5);
+      console.log(locations);
+      address.forEach(renderLocations);
+    });
+  }
+  //End of grabbing google api
+
+  // Function to render Presidents
   function renderPresidents(presidents) {
     const presidentcardimagesrc = presidents.candidate_photo_url_large;
     const presidentcardHeader = presidents.ballot_item_display_name;
@@ -97,9 +117,9 @@ $(document).ready(() => {
     `;
 
     presidentcards.append(presidenthtmlSection);
-
     buttonClick();
   }
+  // End of code to render presidents
 
   //function to render Measures
   function render(measures) {
@@ -135,6 +155,32 @@ $(document).ready(() => {
     $("#propositionscards").append(measureshtmlSection);
     buttonClick();
   }
+  // End of code to render measures
+
+  //function to render Locations
+  function renderLocations(locations) {
+    for (let i = 0; i < locations.length; i++) {
+      const locName = locations[i].address.locationName;
+      const locStreet = locations[i].address.line1;
+      const locCity = locations[i].address.city;
+      const locState = locations[i].address.state;
+      const locZip = locations[i].address.zip;
+      const ballot = $("#ballot");
+      const locationshtmlSection = `
+        <div id="locations" class="card text-center">
+        <div class="card-header">
+        ${locName}
+        </div>
+        <div class="card-body">
+        <p class="card-text">${locStreet}${locCity}${locState}${locZip}</p>
+        </div>
+        </div>`;
+      ballot.append(locationshtmlSection);
+    }
+  }
+  // End of code to render locations
+
+  //Grabbing users voting results
 
   /*   $(function() {
     $(".choicesbtn").on("click", function(event) {
@@ -156,15 +202,17 @@ $(document).ready(() => {
 
       console.log(votechoice);
 
+      $.post("/api/votes").then(data => {});
+
       // Send the POST request.
-      $.ajax("/api/votes", {
-        type: "POST",
+      /*    $.ajax("/api/votes", {
+        type: "PUT",
         data: votechoice
       }).then(function() {
         console.log("voted");
         // Reload the page to get the updated list
         location.reload();
-      });
+      }); */
     });
   }
 });

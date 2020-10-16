@@ -9,7 +9,4 @@ $(document).ready(() => {
     console.log(data);
   });
 
-  $.post("/api/votes").then(data => {
-    console.log(data);
-  });
 });
