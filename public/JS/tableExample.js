@@ -4,7 +4,6 @@ $(document).ready(() => {
   //Grabbing Users Address for Measures API &
   const addressInput = $("#address-input");
   const addressBtn = $("#address-btn");
-  const choiceBtn = $(".choicesbtn");
 
   addressBtn.click("submit", event => {
     event.preventDefault();
@@ -90,7 +89,6 @@ $(document).ready(() => {
     const presidentcardimagesrc = presidents.candidate_photo_url_large;
     const presidentcardHeader = presidents.ballot_item_display_name;
     const presidentpartytext = presidents.party;
-    const presidentcardBody = presidents.ballotpedia_candidate_summary;
     const presidentcards = $("#presidentcards");
     const presidentid = presidents.id;
 
@@ -178,41 +176,43 @@ $(document).ready(() => {
       ballot.append(locationshtmlSection);
     }
   }
-  // End of code to render locations
+  //End of code to render locations
 
   //Grabbing users voting results
-
-  /*   $(function() {
-    $(".choicesbtn").on("click", function(event) {
-      console.log($(this).data("id"));
-    });
-  }); */
-
   function buttonClick() {
     $(".choicesbtn").on("click", function(event) {
       event.preventDefault();
 
-      const id = $(this).data("id");
-      const choicestate = $(this).data("state");
+      const name = $(this).data("id");
+      const choice = $(this).data("state");
 
-      const votechoice = {
-        voteid: id,
-        choice: choicestate
+      const userVote = {
+        name: name,
+        choice: choice
       };
+      console.log(userVote);
+      posttodatabase(userVote.name, userVote.choice);
+    });
+  }
 
-      console.log(votechoice);
+  function posttodatabase(name, choice) {
+    $.post("/api/votes", {
+      name: name,
+      choice: choice
+    }).then(() => {
+      console.log("voted");
+      // Reload the page to get the updated list
+      location.reload();
+    });
 
-      $.post("/api/votes").then(data => {});
-
-      // Send the POST request.
-      /*    $.ajax("/api/votes", {
-        type: "PUT",
+    // Send the POST request.
+    /*    $.ajax("/api/votes", {
+        type: "POST",
         data: votechoice
       }).then(function() {
         console.log("voted");
         // Reload the page to get the updated list
         location.reload();
       }); */
-    });
   }
 });
