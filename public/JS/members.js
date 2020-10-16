@@ -6,7 +6,8 @@ $(document).ready(() => {
   });
 
   $.get("/api/googleapi").then(data => {
-    console.log(data);
+    const locations = data.slice(0,5);
+    //console.log(locations);
   });
 
   $.post("/api/votes").then(data => {

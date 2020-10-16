@@ -5,26 +5,31 @@ $(document).ready(() => {
   const addressInput = $("#address-input");
   const addressBtn = $("#address-btn");
 
-  addressBtn.click("submit", event => {
+  addressBtn.click("submit", (event) => {
     event.preventDefault();
     const inputAddress = addressInput.val().trim();
     const replacedAddress = inputAddress.split(" ").join("+");
+    const presidentwevoteUrl =
+      "https://api.wevoteusa.org/apis/v1/voterBallotItemsRetrieve/?csrfmiddlewaretoken=ncRBy6zydqnBkz9zk2c4rOFh3nrxrLclLLWFFGvI9wt2L2WaehNtniMbpMifG6kl&voter_device_id=e9d5HVqN5duYmmWNDoonK5zyJ2KZh2CsHhnunVRpSnKlFF4sWdRKLBuOy5rESt1znScUhtcItDAxgk78ca7uQiBc&google_civic_election_id=&ballot_returned_we_vote_id=&ballot_location_shortcut=";
     grabMeasures(replacedAddress);
+    grabLocation();
+    grabPresidents(presidentwevoteUrl);
   });
+});
+// end of address button click function
 
-  //Grab Presidential Candidates from API
+//Grab Presidential Candidates from API
 
-  const presidentwevoteUrl =
-    "https://api.wevoteusa.org/apis/v1/voterBallotItemsRetrieve/?csrfmiddlewaretoken=ncRBy6zydqnBkz9zk2c4rOFh3nrxrLclLLWFFGvI9wt2L2WaehNtniMbpMifG6kl&voter_device_id=e9d5HVqN5duYmmWNDoonK5zyJ2KZh2CsHhnunVRpSnKlFF4sWdRKLBuOy5rESt1znScUhtcItDAxgk78ca7uQiBc&google_civic_election_id=&ballot_returned_we_vote_id=&ballot_location_shortcut=";
 
-  //Presidential Candidate Array
 
+//Presidential Candidate Array
+function grabPresidents(presidentparameter) {
   var presedentialCandidates = [];
 
   // Presidential Candidate Ajax Call
   $.ajax({
     method: "GET",
-    url: presidentwevoteUrl
+    url: presidentparameter,
   }).then(function(res) {
     const federaldata = res.ballot_item_list.filter(function(federal) {
       return federal.race_office_level === "Federal";
@@ -36,44 +41,56 @@ $(document).ready(() => {
 
     presedentialCandidates.forEach(renderPresidents);
   });
+}
 
-  function grabMeasures(addressparameter) {
-    //Array to push local measures
+function grabMeasures(addressparameter) {
+  //Array to push local measures
 
-    var measures = [];
+  var measures = [];
 
-    const queryU =
-      "https://api.wevoteusa.org/apis/v1/voterAddressSave/?csrfmiddlewaretoken=mRyhv4vjUAzkGQMWxLZrswUw7BUG6NHe6ojzNTMqHzcWMOVR7vrbYtQvaQZ96m2v&voter_device_id=AE08n1yZqrtkFWv7jO9BeYESRiGQgQoYBfZ9TUxvnfnU0YANSl5NtZVyPGsFrKtXS0zmceW77e6ByyvKm2ky3p5F&text_for_map_search=" +
-      addressparameter;
+  const queryU =
+    "https://api.wevoteusa.org/apis/v1/voterAddressSave/?csrfmiddlewaretoken=mRyhv4vjUAzkGQMWxLZrswUw7BUG6NHe6ojzNTMqHzcWMOVR7vrbYtQvaQZ96m2v&voter_device_id=AE08n1yZqrtkFWv7jO9BeYESRiGQgQoYBfZ9TUxvnfnU0YANSl5NtZVyPGsFrKtXS0zmceW77e6ByyvKm2ky3p5F&text_for_map_search=" +
+    addressparameter;
 
-    // Meaures Ajax Call
+  // Meaures Ajax Call
 
-    $.ajax({
-      method: "GET",
-      url: queryU
-    }).then(function(response) {
-      const measuresdata = response.ballot_item_list.filter(function(MEASURE) {
-        return MEASURE.kind_of_ballot_item === "MEASURE";
-      });
-
-      for (var index = 0; index < measuresdata.length; index++) {
-        measures.push(measuresdata[index]);
-      }
-
-      measures.forEach(render);
+  $.ajax({
+    method: "GET",
+    url: queryU,
+  }).then(function(response) {
+    const measuresdata = response.ballot_item_list.filter(function(MEASURE) {
+      return MEASURE.kind_of_ballot_item === "MEASURE";
     });
-  }
 
-  // Function to Render Presidents
-  function renderPresidents(presidents) {
-    const presidentcardimagesrc = presidents.candidate_photo_url_large;
-    const presidentcardHeader = presidents.ballot_item_display_name;
-    const presidentpartytext = presidents.party;
-    const presidentcardBody = presidents.ballotpedia_candidate_summary;
-    const presidentcards = $("#presidentcards");
-    const presidentid = presidents.id;
+    for (var index = 0; index < measuresdata.length; index++) {
+      measures.push(measuresdata[index]);
+    }
 
-    const presidenthtmlSection = `
+    measures.forEach(renderMeasures);
+  });
+}
+
+function grabLocation() {
+  $.get("/api/googleapi").then((data) => {
+    const locations = data.slice(0, 5);
+    console.log(locations);
+
+    locations.forEach(renderLocations);
+
+    //function to render Locations
+  });
+}
+
+// Function to Render Presidents
+function renderPresidents(presidents) {
+  const presidentcardimagesrc = presidents.candidate_photo_url_large;
+  const presidentcardHeader = presidents.ballot_item_display_name;
+  const presidentpartytext = presidents.party;
+  const presidentcardBody = presidents.ballotpedia_candidate_summary;
+  const presidentcards = $("#presidentcards");
+  const presidentid = presidents.id;
+
+  const presidenthtmlSection = `
       <div class="col-6">
       <div class="card">
     <img
@@ -114,18 +131,18 @@ $(document).ready(() => {
 </div>
     `;
 
-    presidentcards.append(presidenthtmlSection);
-  }
+  presidentcards.append(presidenthtmlSection);
+}
 
-  //function to render Measures
-  function render(measures) {
-    const measurecardHeader = measures.ballot_item_display_name;
-    const measurecardBody = measures.measure_text;
-    const measureyesBody = measures.yes_vote_description;
-    const measurenoBody = measures.no_vote_description;
-    const measureid = measures.local_ballot_order;
+//function to render Measures
+function renderMeasures(measures) {
+  const measurecardHeader = measures.ballot_item_display_name;
+  const measurecardBody = measures.measure_text;
+  const measureyesBody = measures.yes_vote_description;
+  const measurenoBody = measures.no_vote_description;
+  const measureid = measures.local_ballot_order;
 
-    const measureshtmlSection = `
+  const measureshtmlSection = `
     <div class="card text-center">
     <div class="card-header">
     ${measurecardHeader}
@@ -167,28 +184,25 @@ $(document).ready(() => {
     </div>
   </div>`;
 
-    $("#propositionscards").append(measureshtmlSection);
-  }
+  $("#propositionscards").append(measureshtmlSection);
+}
+//function to render Locations
+function renderLocations(locations) {
+  const locName = locations.address.locationName;
+  const locStreet = locations.address.line1;
+  const locCity = locations.address.city;
+  const locState = locations.address.state;
+  const locZip = locations.address.zip;
 
-  $(document).click(function(event) {
-    event.preventDefault();
-    console.log($(this));
-    console.log($("#presidentchoice label.active input").val());
-    console.log($("#presidentchoice label.active").data("value"));
+  const locationshtmlSection = `
+<div id="locations" class="card text-center">
+<div class="card-header">
+${locName}
+</div>
+<div class="card-body">
+<p class="card-text">${locStreet}${locCity}${locState}${locZip}</p>
+</div>
+</div>`;
 
-    var votechoice = {
-      voteid: "0",
-      choice: $("#presidentchoice label.active input").val()
-    };
-
-    // Send the POST request.
-    /*    $.ajax("/api/votes", {
-      type: "POST",
-      data: votechoice
-    }).then(function() {
-      console.log("voted");
-      // Reload the page to get the updated list
-      location.reload();
-    }); */
-  });
-});
+  $("#ballot").append(locationshtmlSection);
+}
