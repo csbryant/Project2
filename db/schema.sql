@@ -5,5 +5,5 @@ USE cheatsheet_db;
 
 CREATE TABLE Votes (
     name INT NOT NULL,
-    vote BOOLEAN NOT NULL DEFAULT FALSE
+    vote INT NOT NULL
 );

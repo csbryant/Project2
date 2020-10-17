@@ -107,8 +107,8 @@ $(document).ready(() => {
     </div>
     <div class="card-footer">
       <div class="btn-group" role="group" aria-label="choices">
-        <button data-id=${presidentid} data-state="true" type="button" class="choicesbtn btn btn-secondary">Choose</button>
-        <button data-id=${presidentid} data-state="false" type="button" class="choicesbtn btn btn-secondary">Oppose</button>
+        <button data-id=${presidentid} data-state="1" type="button" class="choicesbtn btn btn-secondary">Choose</button>
+        <button data-id=${presidentid} data-state="0" type="button" class="choicesbtn btn btn-secondary">Oppose</button>
        </div>
     </div>
   </div>
@@ -145,8 +145,8 @@ $(document).ready(() => {
     <div class="card-footer">
     <div class="card-footer">
     <div  class=" btn-group" role="group" aria-label="choices">
-      <button data-id=${measureid} data-state="true" type="button" class="choicesbtn btn btn-secondary">Choose</button>
-      <button data-id=${measureid} data-state="false" type="button" class="choicesbtn btn btn-secondary">Oppose</button>
+      <button data-id=${measureid} data-state="1" type="button" class="choicesbtn btn btn-secondary">Choose</button>
+      <button data-id=${measureid} data-state="0" type="button" class="choicesbtn btn btn-secondary">Oppose</button>
      </div>
   </div>
   </div>`;
@@ -185,22 +185,22 @@ $(document).ready(() => {
       event.preventDefault();
 
       const name = $(this).data("id");
-      const choice = $(this).data("state");
+      const choose = $(this).data("state");
 
       const userVote = {
         name: name,
-        choice: choice
+        choose: choose
       };
-      posttodatabase(userVote.name, userVote.choice);
+
+      posttodatabase(userVote.name, userVote.choose);
     });
   }
 
-  function posttodatabase(name, choice) {
+  function posttodatabase(name, choose) {
     $.post("/api/votes", {
       name: name,
-      choice: choice
+      choose: choose
     }).then(() => {
-      console.log("voted");
       // Reload the page to get the updated list
       location.reload();
     });
