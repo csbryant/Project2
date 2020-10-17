@@ -3,7 +3,7 @@ const db = require("../models");
 const passport = require("../config/passport");
 const { google } = require("googleapis");
 
-module.exports = function(app) {
+module.exports = function (app) {
   // Using the passport.authenticate middleware with our local strategy.
   // If the user has valid login credentials, send them to the members page.
   // Otherwise the user will be sent an error
@@ -53,7 +53,7 @@ module.exports = function(app) {
     }
   });
 
-  app.get("/api/googleapi", function(req, res) {
+  app.get("/api/googleapi", function (req, res) {
     const civicinfo = google.civicinfo({
       version: "v2",
       auth: "AIzaSyDsppdMS3wxP88R7QYqvWbyYk7HavF5Y4U"
@@ -78,7 +78,7 @@ module.exports = function(app) {
       });
   });
 
-  app.get("/api/votes", function(req, res) {
+  app.get("/api/votes", function (req, res) {
     db.Vote.findAll({})
       .then(data => {
         res.json(data);
@@ -90,10 +90,21 @@ module.exports = function(app) {
       });
   });
 
-  app.post("/api/votes", function(req, res) {
+  app.get("/api/votes/:UserId", function (req, res) {
+    db.Votes.findAll({
+      where: {
+        UserId: req.params.UserId,
+      },
+    }).then(function (dbPost) {
+      res.json(dbPost);
+    });
+  });
+
+  app.post("/api/votes", function (req, res) {
     db.Vote.create({
       name: req.body.name,
-      choice: req.body.choice
+      choice: req.body.choice,
+      UserID: req.user.id
     })
       .then(data => {
         console.log(data);
