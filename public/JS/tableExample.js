@@ -77,7 +77,6 @@ $(document).ready(() => {
   function grabLocation() {
     $.get("/api/googleapi").then(data => {
       const locations = data.slice(0, 5);
-      console.log(locations);
 
       locations.forEach(renderLocations);
 
@@ -181,7 +180,8 @@ $(document).ready(() => {
 
   //Grabbing users voting results
   function buttonClick() {
-    $(".choicesbtn").on("click", function(event) {
+    $(".choicesbtn").unbind("click");
+    $(".choicesbtn").bind("click", function() {
       event.preventDefault();
 
       const name = $(this).data("id");
@@ -191,7 +191,6 @@ $(document).ready(() => {
         name: name,
         choice: choice
       };
-      console.log(userVote);
       posttodatabase(userVote.name, userVote.choice);
     });
   }

@@ -5,8 +5,5 @@ $(document).ready(() => {
     $(".member-name").text(data.email);
   });
 
-  $.get("/api/googleapi").then(data => {
-    console.log(data);
-  });
-
+  $.get("/api/googleapi").then(data => {});
 });
