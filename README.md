@@ -1,5 +1,7 @@
 ## Voter Cheat Sheet
 
+<img src="https://raw.githubusercontent.com/csbryant/VoterCheatSheet/main/public/IMG/logodark.png" />
+
 <a href="https://afternoon-peak-23794.herokuapp.com/">Link to Application</a>
 
 ### Table of Contents
