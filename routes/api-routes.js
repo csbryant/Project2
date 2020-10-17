@@ -103,7 +103,7 @@ module.exports = function (app) {
   app.post("/api/votes", function (req, res) {
     db.Vote.create({
       name: req.body.name,
-      choice: req.body.choice,
+      choose: req.body.choose,
       UserID: req.user.id
     })
       .then(data => {
